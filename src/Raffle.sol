@@ -9,6 +9,7 @@ pragma solidity ^0.8.23;
  */
 contract Raffle {
   uint256 private immutable i_enterFee;
+  address payable[] private s_players;
 
   error Raffle__NotEnoughEthSent();
 
@@ -20,5 +21,8 @@ contract Raffle {
     if (msg.value < i_enterFee) {
       revert Raffle__NotEnoughEthSent();
     }
+
+    address payable player = payable(msg.sender);
+    s_players.push(player);
   }
 }
