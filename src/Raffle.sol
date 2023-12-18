@@ -15,8 +15,15 @@ contract Raffle is VRFConsumerBaseV2 {
   error Raffle__NotEnoughTimePassed();
   error Raffle__NoPlayers();
   error Raffle__DistributingEthFailed();
+  error Raffle__NotOpen();
 
   event Raffle__EnteredRaffle(address indexed player);
+
+  enum RaffleState {
+    OPEN,
+    CLOSED,
+    CALCULATING
+  }
 
   uint16 private constant REQUEST_CONFIRMATIONS = 3;
   uint32 private constant NUM_WORDS = 1;
@@ -31,6 +38,7 @@ contract Raffle is VRFConsumerBaseV2 {
   address payable[] private s_players;
   uint256 private s_lastRaffleTimestamp;
   address payable private s_lastWinner;
+  RaffleState private s_raffleState;
 
   constructor(
     uint256 _enterFee,
@@ -48,11 +56,16 @@ contract Raffle is VRFConsumerBaseV2 {
     i_callbackGasLimit = callbackGasLimit;
 
     s_lastRaffleTimestamp = block.timestamp;
+    s_raffleState = RaffleState.OPEN;
   }
 
   function enterRaffle() external payable {
     if (msg.value < i_enterFee) {
       revert Raffle__NotEnoughEthSent();
+    }
+
+    if (s_raffleState != RaffleState.OPEN) {
+      revert Raffle__NotOpen();
     }
 
     address payable player = payable(msg.sender);
@@ -66,6 +79,7 @@ contract Raffle is VRFConsumerBaseV2 {
       revert Raffle__NotEnoughTimePassed();
     }
 
+    s_raffleState = RaffleState.CALCULATING;
     sendVrfRequest();
   }
 
@@ -85,6 +99,8 @@ contract Raffle is VRFConsumerBaseV2 {
   ) internal override {
     uint256 winnerIndex = randomWords[0] % s_players.length;
     address payable winner = s_players[winnerIndex];
+
+    s_raffleState = RaffleState.OPEN;
 
     (bool success, ) = winner.call{value: address(this).balance}("");
     if (success == false) {
