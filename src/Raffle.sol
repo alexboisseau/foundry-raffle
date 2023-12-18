@@ -8,10 +8,12 @@ pragma solidity ^0.8.23;
  * @notice This contract is used to manage a raffle
  */
 contract Raffle {
+  error Raffle__NotEnoughEthSent();
+
+  event Raffle__EnteredRaffle(address indexed player);
+
   uint256 private immutable i_enterFee;
   address payable[] private s_players;
-
-  error Raffle__NotEnoughEthSent();
 
   constructor(uint256 _enterFee) {
     i_enterFee = _enterFee;
@@ -24,5 +26,7 @@ contract Raffle {
 
     address payable player = payable(msg.sender);
     s_players.push(player);
+
+    emit Raffle__EnteredRaffle(player);
   }
 }
