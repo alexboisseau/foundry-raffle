@@ -101,13 +101,14 @@ contract Raffle is VRFConsumerBaseV2 {
     address payable winner = s_players[winnerIndex];
 
     s_raffleState = RaffleState.OPEN;
+    s_players = new address payable[](0);
+    s_lastRaffleTimestamp = block.timestamp;
+    s_lastWinner = winner;
 
     (bool success, ) = winner.call{value: address(this).balance}("");
     if (success == false) {
       revert Raffle__DistributingEthFailed();
     }
-
-    s_lastWinner = winner;
   }
 
   function enoughTimePassed() private view returns (bool) {
