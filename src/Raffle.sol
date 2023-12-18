@@ -18,6 +18,7 @@ contract Raffle is VRFConsumerBaseV2 {
   error Raffle__NotOpen();
 
   event Raffle__EnteredRaffle(address indexed player);
+  event Raffle__PickedWinner(address indexed winner);
 
   enum RaffleState {
     OPEN,
@@ -104,6 +105,8 @@ contract Raffle is VRFConsumerBaseV2 {
     s_players = new address payable[](0);
     s_lastRaffleTimestamp = block.timestamp;
     s_lastWinner = winner;
+
+    emit Raffle__PickedWinner(winner);
 
     (bool success, ) = winner.call{value: address(this).balance}("");
     if (success == false) {
