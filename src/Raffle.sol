@@ -134,15 +134,13 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     );
   }
 
-  function enoughTimePassed() private view returns (bool) {
-    return block.timestamp > s_lastRaffleTimestamp + i_raffleIntervalInSeconds;
-  }
-
   function winnerCanBePicked() private view returns (bool) {
     bool raffleIsOpen = s_raffleState == RaffleState.OPEN;
     bool raffleHasPlayers = s_players.length > 0;
+    bool enoughTimePassed = block.timestamp >
+      s_lastRaffleTimestamp + i_raffleIntervalInSeconds;
 
-    return enoughTimePassed() && raffleIsOpen && raffleHasPlayers;
+    return enoughTimePassed && raffleIsOpen && raffleHasPlayers;
   }
 
   function pickRandomPlayer(
