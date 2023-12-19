@@ -14,3 +14,11 @@ This project stands in the context of Cyfrin Updraft blockchain course.
 3. Using ChainLink VRF & ChainLink Automation
    1. ChainLink VRF => Randomness
    2. ChainLink Automation -> Time based trigger
+
+## Tests
+
+1. Write deploy script
+2. Write our tests
+   1. Work on a local chain
+   2. Work on forked testnet
+   3. Work on forked mainnet
