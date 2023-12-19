@@ -4,18 +4,22 @@ pragma solidity ^0.8.23;
 
 import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
+import {AutomationCompatibleInterface} from "@chainlink/contracts/src/v0.8/automation/interfaces/AutomationCompatibleInterface.sol";
 
 /**
  * @title Raffle
  * @author Alex Boisseau
  * @notice This contract is used to manage a raffle
  */
-contract Raffle is VRFConsumerBaseV2 {
+contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   error Raffle__NotEnoughEthSent();
-  error Raffle__NotEnoughTimePassed();
-  error Raffle__NoPlayers();
-  error Raffle__DistributingEthFailed();
   error Raffle__NotOpen();
+  error Raffle__DistributingEthFailed();
+  error Raffle_UpkeepNotNeeded(
+    uint256 currentBalance,
+    uint256 playersNumber,
+    uint256 raffleState
+  );
 
   event Raffle__EnteredRaffle(address indexed player);
   event Raffle__PickedWinner(address indexed winner);
@@ -75,27 +79,34 @@ contract Raffle is VRFConsumerBaseV2 {
     emit Raffle__EnteredRaffle(player);
   }
 
-  function pickWinner() external returns (address payable) {
-    if (enoughTimePassed() == false) {
-      revert Raffle__NotEnoughTimePassed();
+  function checkUpkeep(
+    bytes memory /* checkData */
+  )
+    public
+    view
+    override
+    returns (bool upkeepNeeded, bytes memory /*performData*/)
+  {
+    upkeepNeeded = winnerCanBePicked();
+  }
+
+  function performUpkeep(bytes calldata /* performData */) external override {
+    (bool upkeepNeeded, ) = checkUpkeep("");
+
+    if (upkeepNeeded == false) {
+      revert Raffle_UpkeepNotNeeded(
+        address(this).balance,
+        s_players.length,
+        uint256(s_raffleState)
+      );
     }
 
     s_raffleState = RaffleState.CALCULATING;
     sendVrfRequest();
   }
 
-  function sendVrfRequest() private {
-    i_vrfCoordinator.requestRandomWords(
-      i_gasLane,
-      i_subscriptionId,
-      REQUEST_CONFIRMATIONS,
-      i_callbackGasLimit,
-      NUM_WORDS
-    );
-  }
-
   function fulfillRandomWords(
-    uint256 requestId,
+    uint256 /* requestId */,
     uint256[] memory randomWords
   ) internal override {
     uint256 winnerIndex = randomWords[0] % s_players.length;
@@ -114,7 +125,24 @@ contract Raffle is VRFConsumerBaseV2 {
     }
   }
 
+  function sendVrfRequest() private {
+    i_vrfCoordinator.requestRandomWords(
+      i_gasLane,
+      i_subscriptionId,
+      REQUEST_CONFIRMATIONS,
+      i_callbackGasLimit,
+      NUM_WORDS
+    );
+  }
+
   function enoughTimePassed() private view returns (bool) {
     return block.timestamp > s_lastRaffleTimestamp + i_raffleIntervalInSeconds;
+  }
+
+  function winnerCanBePicked() private view returns (bool) {
+    bool raffleIsOpen = s_raffleState == RaffleState.OPEN;
+    bool raffleHasPlayers = s_players.length > 0;
+
+    return enoughTimePassed() && raffleIsOpen && raffleHasPlayers;
   }
 }
