@@ -46,14 +46,14 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   RaffleState private s_raffleState;
 
   constructor(
-    uint256 _enterFee,
+    uint256 enterFee,
     uint256 raffleIntervalInSeconds,
     address vrfCoordinator,
     bytes32 gasLane,
     uint64 subscriptionId,
     uint32 callbackGasLimit
   ) VRFConsumerBaseV2(vrfCoordinator) {
-    i_enterFee = _enterFee;
+    i_enterFee = enterFee;
     i_raffleIntervalInSeconds = raffleIntervalInSeconds;
     i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinator);
     i_gasLane = gasLane;
