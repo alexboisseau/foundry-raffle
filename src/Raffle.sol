@@ -149,4 +149,10 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     uint256 playerIndex = randomValue % s_players.length;
     randomPlayer = s_players[playerIndex];
   }
+
+  /** GETTERS */
+
+  function getRaffleState() external view returns (RaffleState) {
+    return s_raffleState;
+  }
 }
