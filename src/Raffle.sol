@@ -79,17 +79,6 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     emit Raffle__EnteredRaffle(player);
   }
 
-  function checkUpkeep(
-    bytes memory /* checkData */
-  )
-    public
-    view
-    override
-    returns (bool upkeepNeeded, bytes memory /*performData*/)
-  {
-    upkeepNeeded = winnerCanBePicked();
-  }
-
   function performUpkeep(bytes calldata /* performData */) external override {
     (bool upkeepNeeded, ) = checkUpkeep("");
 
@@ -103,6 +92,17 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
     s_raffleState = RaffleState.CALCULATING;
     sendVrfRequest();
+  }
+
+  function checkUpkeep(
+    bytes memory /* checkData */
+  )
+    public
+    view
+    override
+    returns (bool upkeepNeeded, bytes memory /*performData*/)
+  {
+    upkeepNeeded = winnerCanBePicked();
   }
 
   function fulfillRandomWords(
