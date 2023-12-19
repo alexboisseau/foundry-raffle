@@ -109,8 +109,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     uint256 /* requestId */,
     uint256[] memory randomWords
   ) internal override {
-    uint256 winnerIndex = randomWords[0] % s_players.length;
-    address payable winner = s_players[winnerIndex];
+    address payable winner = pickRandomPlayer(randomWords[0]);
 
     s_raffleState = RaffleState.OPEN;
     s_players = new address payable[](0);
@@ -144,5 +143,12 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     bool raffleHasPlayers = s_players.length > 0;
 
     return enoughTimePassed() && raffleIsOpen && raffleHasPlayers;
+  }
+
+  function pickRandomPlayer(
+    uint256 randomValue
+  ) private view returns (address payable randomPlayer) {
+    uint256 playerIndex = randomValue % s_players.length;
+    randomPlayer = s_players[playerIndex];
   }
 }
