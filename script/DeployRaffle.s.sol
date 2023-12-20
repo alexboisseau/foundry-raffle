@@ -20,6 +20,7 @@ contract DeployRaffle is Script {
 
     ) = helperConfig.activeNetworkConfig();
 
+    // If subscriptionId is 0, we're on Anvil Network and need to create a subscription
     if (subscriptionId == 0) {
       CreateVrfSubscription createVrfSubscription = new CreateVrfSubscription();
       subscriptionId = createVrfSubscription.createVrfSubscription(
