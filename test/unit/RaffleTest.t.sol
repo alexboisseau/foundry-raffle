@@ -178,4 +178,15 @@ contract RaffleTest is Test {
 
     assert(requestId > 0);
   }
+
+  function testPerforumUpkeepUpdateRaffleState()
+    public
+    raffleEntered
+    timePassed
+  {
+    raffle.performUpkeep("");
+    uint256 state = uint256(raffle.getRaffleState());
+
+    assert(state == 1);
+  }
 }
