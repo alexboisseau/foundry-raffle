@@ -22,6 +22,18 @@ contract RaffleTest is Test {
   uint64 public subscriptionId;
   uint32 public callbackGasLimit;
 
+  modifier raffleEntered() {
+    vm.prank(PLAYER);
+    raffle.enterRaffle{value: enterFee}();
+    _;
+  }
+
+  modifier timePassed() {
+    vm.warp(block.timestamp + raffleIntervalInSeconds + 1);
+    vm.roll(block.number + 1);
+    _;
+  }
+
   function setUp() external {
     DeployRaffle deployRaffle = new DeployRaffle();
     (raffle, helperConfig) = deployRaffle.run();
@@ -55,12 +67,11 @@ contract RaffleTest is Test {
     raffle.enterRaffle{value: notEnoughEth}();
   }
 
-  function testEnterRaffleRevertsWhenStateIsNotOpen() public {
-    vm.prank(PLAYER);
-    raffle.enterRaffle{value: enterFee}();
-
-    vm.warp(block.timestamp + raffleIntervalInSeconds + 1);
-    vm.roll(block.number + 1);
+  function testEnterRaffleRevertsWhenStateIsNotOpen()
+    public
+    raffleEntered
+    timePassed
+  {
     raffle.performUpkeep("");
 
     vm.expectRevert(Raffle.Raffle__NotOpen.selector);
@@ -89,22 +100,22 @@ contract RaffleTest is Test {
   // Raffle__CheckUpkeep
   ///////////////////////
 
-  function testCheckUpkeepReturnsFalseWhenNotEnoughTimeHasPassed() public {
-    vm.prank(PLAYER);
-    raffle.enterRaffle{value: enterFee}();
+  function testCheckUpkeepReturnsFalseWhenNotEnoughTimeHasPassed()
+    public
+    raffleEntered
+  {
     vm.warp(block.timestamp + raffleIntervalInSeconds - 1);
     vm.roll(block.number + 1);
-
     (bool upkeepNeeded, ) = raffle.checkUpkeep("");
 
     assert(upkeepNeeded == false);
   }
 
-  function testCheckUpkeepReturnsFalseWhenRaffleIsNotOpen() public {
-    vm.prank(PLAYER);
-    raffle.enterRaffle{value: enterFee}();
-    vm.warp(block.timestamp + raffleIntervalInSeconds + 1);
-    vm.roll(block.number + 1);
+  function testCheckUpkeepReturnsFalseWhenRaffleIsNotOpen()
+    public
+    raffleEntered
+    timePassed
+  {
     raffle.performUpkeep("");
 
     (bool upkeepNeeded, ) = raffle.checkUpkeep("");
@@ -121,12 +132,11 @@ contract RaffleTest is Test {
     assert(upkeepNeeded == false);
   }
 
-  function testUpkeepReturnsTrueWhenParametersAreGood() public {
-    vm.warp(block.timestamp + raffleIntervalInSeconds + 1);
-    vm.roll(block.number + 1);
-    vm.prank(PLAYER);
-    raffle.enterRaffle{value: enterFee}();
-
+  function testUpkeepReturnsTrueWhenParametersAreGood()
+    public
+    raffleEntered
+    timePassed
+  {
     (bool upkeepNeeded, ) = raffle.checkUpkeep("");
 
     assert(upkeepNeeded == true);
@@ -152,12 +162,11 @@ contract RaffleTest is Test {
     raffle.performUpkeep("");
   }
 
-  function testPerformUpkeepRunWhenCheckUpkeepReturnsTrue() public {
-    vm.warp(block.timestamp + raffleIntervalInSeconds + 1);
-    vm.roll(block.number + 1);
-    vm.prank(PLAYER);
-    raffle.enterRaffle{value: enterFee}();
-
+  function testPerformUpkeepRunWhenCheckUpkeepReturnsTrue()
+    public
+    raffleEntered
+    timePassed
+  {
     raffle.performUpkeep("");
   }
 }
