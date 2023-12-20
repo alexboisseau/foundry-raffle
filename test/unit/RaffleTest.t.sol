@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.23;
 
-import {Test} from "forge-std/Test.sol";
+import {Test, Vm} from "forge-std/Test.sol";
 import {Raffle} from "../../src/Raffle.sol";
 import {HelperConfig} from "../../script/HelperConfig.s.sol";
 import {DeployRaffle} from "../../script/DeployRaffle.s.sol";
@@ -168,5 +168,14 @@ contract RaffleTest is Test {
     timePassed
   {
     raffle.performUpkeep("");
+  }
+
+  function testPerformUpkeepEmitEvent() public raffleEntered timePassed {
+    vm.recordLogs();
+    raffle.performUpkeep("");
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    bytes32 requestId = entries[0].topics[1];
+
+    assert(requestId > 0);
   }
 }
