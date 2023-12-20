@@ -26,7 +26,6 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
   enum RaffleState {
     OPEN,
-    CLOSED,
     CALCULATING
   }
 
