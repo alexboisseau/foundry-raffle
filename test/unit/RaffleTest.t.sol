@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.23;
 
-import {Test, Vm} from "forge-std/Test.sol";
+import {Test, Vm, console} from "forge-std/Test.sol";
 import {Raffle} from "../../src/Raffle.sol";
 import {HelperConfig} from "../../script/HelperConfig.s.sol";
 import {DeployRaffle} from "../../script/DeployRaffle.s.sol";
@@ -32,6 +32,20 @@ contract RaffleTest is Test {
   modifier timePassed() {
     vm.warp(block.timestamp + raffleIntervalInSeconds + 1);
     vm.roll(block.number + 1);
+    _;
+  }
+
+  modifier requestSent() {
+    vm.recordLogs();
+    raffle.performUpkeep("");
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    bytes32 requestId = entries[0].topics[2];
+    console.log("request Id :", uint256(requestId));
+
+    VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
+      uint256(requestId),
+      address(raffle)
+    );
     _;
   }
 
@@ -203,5 +217,70 @@ contract RaffleTest is Test {
       randomRequestId,
       address(raffle)
     );
+  }
+
+  function testFullfillRandomWordsResetPlayers()
+    public
+    raffleEntered
+    timePassed
+    requestSent
+  {
+    assert(raffle.getPlayers().length == 0);
+  }
+
+  function testFullfillRandomWordsResetState()
+    public
+    raffleEntered
+    timePassed
+    requestSent
+  {
+    assert(uint256(raffle.getRaffleState()) == 0);
+  }
+
+  function testFullfillRandomWordsSentPrize() public raffleEntered timePassed {
+    uint256 addedPlayers = 5;
+
+    for (uint256 i = 1; i <= addedPlayers; i++) {
+      address player = address(uint160(i));
+      hoax(player, STARTING_PLAYER_BALANCE); // deal 100 ether to play
+      raffle.enterRaffle{value: enterFee}();
+    }
+
+    vm.recordLogs();
+    raffle.performUpkeep("");
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    bytes32 requestId = entries[0].topics[2];
+
+    VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
+      uint256(requestId),
+      address(raffle)
+    );
+
+    uint256 prize = enterFee * (addedPlayers + 1);
+
+    assert(
+      raffle.getLastWinner().balance ==
+        STARTING_PLAYER_BALANCE + prize - enterFee
+    );
+  }
+
+  function testFullfillRandomWordsUpdatesLastTimestamp()
+    public
+    raffleEntered
+    timePassed
+  {
+    uint256 lastTimestamp = raffle.getLastRaffleTimestamp();
+
+    vm.recordLogs();
+    raffle.performUpkeep("");
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    bytes32 requestId = entries[0].topics[2];
+
+    VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
+      uint256(requestId),
+      address(raffle)
+    );
+
+    assert(raffle.getLastRaffleTimestamp() > lastTimestamp);
   }
 }
