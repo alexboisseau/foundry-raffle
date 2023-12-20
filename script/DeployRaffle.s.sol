@@ -5,7 +5,7 @@ pragma solidity ^0.8.23;
 import {Script} from "forge-std/Script.sol";
 import {Raffle} from "../src/Raffle.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
-import {CreateVrfSubscription} from "./Interactions.s.sol";
+import {CreateVrfSubscription, AddVrfConsumer, FundVrfSubscription} from "./Interactions.s.sol";
 
 contract DeployRaffle is Script {
   function run() external returns (Raffle, HelperConfig) {
@@ -17,7 +17,7 @@ contract DeployRaffle is Script {
       bytes32 gasLane,
       uint64 subscriptionId,
       uint32 callbackGasLimit,
-
+      address linkToken
     ) = helperConfig.activeNetworkConfig();
 
     // If subscriptionId is 0, we're on Anvil Network and need to create a subscription
@@ -25,6 +25,13 @@ contract DeployRaffle is Script {
       CreateVrfSubscription createVrfSubscription = new CreateVrfSubscription();
       subscriptionId = createVrfSubscription.createVrfSubscription(
         vrfCoordinatorV2
+      );
+
+      FundVrfSubscription fundVrfSubscription = new FundVrfSubscription();
+      fundVrfSubscription.fundVrfSubscription(
+        vrfCoordinatorV2,
+        subscriptionId,
+        linkToken
       );
     }
 
@@ -40,6 +47,13 @@ contract DeployRaffle is Script {
     );
 
     vm.stopBroadcast();
+
+    AddVrfConsumer addVrfConsumer = new AddVrfConsumer();
+    addVrfConsumer.addVrfConsumer(
+      address(raffle),
+      vrfCoordinatorV2,
+      subscriptionId
+    );
 
     return (raffle, helperConfig);
   }
