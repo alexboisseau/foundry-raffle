@@ -49,6 +49,14 @@ contract RaffleTest is Test {
     _;
   }
 
+  modifier skipFork() {
+    if (block.chainid != 31337) {
+      return;
+    }
+
+    _;
+  }
+
   function setUp() external {
     DeployRaffle deployRaffle = new DeployRaffle();
     (raffle, helperConfig) = deployRaffle.run();
@@ -212,7 +220,7 @@ contract RaffleTest is Test {
 
   function testFullfillRandomWordsCanOnlyBeCalledAfterPerformUpkeep(
     uint256 randomRequestId
-  ) public {
+  ) public skipFork {
     vm.expectRevert("nonexistent request");
     VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
       randomRequestId,
@@ -222,6 +230,7 @@ contract RaffleTest is Test {
 
   function testFullfillRandomWordsResetPlayers()
     public
+    skipFork
     raffleEntered
     timePassed
     requestSent
@@ -231,6 +240,7 @@ contract RaffleTest is Test {
 
   function testFullfillRandomWordsResetState()
     public
+    skipFork
     raffleEntered
     timePassed
     requestSent
@@ -238,7 +248,12 @@ contract RaffleTest is Test {
     assert(uint256(raffle.getRaffleState()) == 0);
   }
 
-  function testFullfillRandomWordsSentPrize() public raffleEntered timePassed {
+  function testFullfillRandomWordsSentPrize()
+    public
+    skipFork
+    raffleEntered
+    timePassed
+  {
     uint256 addedPlayers = 5;
 
     for (uint256 i = 1; i <= addedPlayers; i++) {
@@ -267,6 +282,7 @@ contract RaffleTest is Test {
 
   function testFullfillRandomWordsUpdatesLastTimestamp()
     public
+    skipFork
     raffleEntered
     timePassed
   {
