@@ -10,9 +10,10 @@ import {DevOpsTools} from "foundry-devops/src/DevOpsTools.sol";
 
 contract CreateVrfSubscription is Script {
   function createVrfSubscription(
-    address vrfCoordinator
+    address vrfCoordinator,
+    uint256 deployerKey
   ) public returns (uint64) {
-    vm.startBroadcast();
+    vm.startBroadcast(deployerKey);
     uint64 subscriptionId = VRFCoordinatorV2Mock(vrfCoordinator)
       .createSubscription();
     vm.stopBroadcast();
@@ -22,9 +23,9 @@ contract CreateVrfSubscription is Script {
 
   function createSubscriptionVrfUsingConfig() public returns (uint64) {
     HelperConfig helperConfig = new HelperConfig();
-    (, , address vrfCoordinatorV2, , , , , ) = helperConfig
+    (, , address vrfCoordinatorV2, , , , , uint256 deployerKey) = helperConfig
       .activeNetworkConfig();
-    return createVrfSubscription(vrfCoordinatorV2);
+    return createVrfSubscription(vrfCoordinatorV2, deployerKey);
   }
 
   function run() external returns (uint64) {
@@ -38,7 +39,8 @@ contract FundVrfSubscription is Script {
   function fundVrfSubscription(
     address vrfCoordinatorV2,
     uint64 subscriptionId,
-    address linkToken
+    address linkToken,
+    uint256 deployerKey
   ) public {
     console.log("subscriptionId : ", subscriptionId);
     console.log("vrfCoordinatorV2 : ", vrfCoordinatorV2);
@@ -46,14 +48,14 @@ contract FundVrfSubscription is Script {
     console.log("chain id : ", block.chainid);
 
     if (block.chainid == 31337) {
-      vm.startBroadcast();
+      vm.startBroadcast(deployerKey);
       VRFCoordinatorV2Mock(vrfCoordinatorV2).fundSubscription(
         subscriptionId,
         FUND_AMOUNT
       );
       vm.stopBroadcast();
     } else {
-      vm.startBroadcast();
+      vm.startBroadcast(deployerKey);
       LinkToken(linkToken).transferAndCall(
         vrfCoordinatorV2,
         FUND_AMOUNT,
@@ -73,9 +75,14 @@ contract FundVrfSubscription is Script {
       uint64 subscriptionId,
       ,
       address linkToken,
-
+      uint256 deployerKey
     ) = helperConfig.activeNetworkConfig();
-    fundVrfSubscription(vrfCoordinatorV2, subscriptionId, linkToken);
+    fundVrfSubscription(
+      vrfCoordinatorV2,
+      subscriptionId,
+      linkToken,
+      deployerKey
+    );
   }
 
   function run() external {
