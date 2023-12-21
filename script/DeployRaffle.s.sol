@@ -17,7 +17,8 @@ contract DeployRaffle is Script {
       bytes32 gasLane,
       uint64 subscriptionId,
       uint32 callbackGasLimit,
-      address linkToken
+      address linkToken,
+
     ) = helperConfig.activeNetworkConfig();
 
     // If subscriptionId is 0, we're on Anvil Network and need to create a subscription

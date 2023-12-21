@@ -22,7 +22,8 @@ contract CreateVrfSubscription is Script {
 
   function createSubscriptionVrfUsingConfig() public returns (uint64) {
     HelperConfig helperConfig = new HelperConfig();
-    (, , address vrfCoordinatorV2, , , , ) = helperConfig.activeNetworkConfig();
+    (, , address vrfCoordinatorV2, , , , , ) = helperConfig
+      .activeNetworkConfig();
     return createVrfSubscription(vrfCoordinatorV2);
   }
 
@@ -71,7 +72,8 @@ contract FundVrfSubscription is Script {
       ,
       uint64 subscriptionId,
       ,
-      address linkToken
+      address linkToken,
+
     ) = helperConfig.activeNetworkConfig();
     fundVrfSubscription(vrfCoordinatorV2, subscriptionId, linkToken);
   }
@@ -101,7 +103,7 @@ contract AddVrfConsumer is Script {
 
   function addVrfConsumerUsingConfig(address consumer) public {
     HelperConfig helperConfig = new HelperConfig();
-    (, , address vrfCoordinatorV2, , uint64 subscriptionId, , ) = helperConfig
+    (, , address vrfCoordinatorV2, , uint64 subscriptionId, , , ) = helperConfig
       .activeNetworkConfig();
 
     addVrfConsumer(consumer, vrfCoordinatorV2, subscriptionId);

@@ -62,6 +62,7 @@ contract RaffleTest is Test {
       gasLane,
       subscriptionId,
       callbackGasLimit,
+      ,
 
     ) = helperConfig.activeNetworkConfig();
   }
