@@ -171,9 +171,9 @@ contract RaffleTest is Test {
   ///////////////////////
 
   function testPerformUpkeepRevertsWhenCheckUpkeepReturnsFalse() public {
-    uint256 balance = 0;
-    uint256 players = 0;
-    uint256 state = 0;
+    uint256 balance = address(raffle).balance;
+    uint256 players = raffle.getPlayers().length;
+    Raffle.RaffleState state = raffle.getRaffleState();
 
     vm.expectRevert(
       abi.encodeWithSelector(
