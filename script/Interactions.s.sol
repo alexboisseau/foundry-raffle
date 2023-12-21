@@ -87,13 +87,14 @@ contract AddVrfConsumer is Script {
   function addVrfConsumer(
     address consumer,
     address vrfCoordinatorV2,
-    uint64 subscriptionId
+    uint64 subscriptionId,
+    uint256 deployerKey
   ) public {
     console.log("consumer : ", consumer);
     console.log("vrfCoordinatorV2 : ", vrfCoordinatorV2);
     console.log("subscriptionId : ", subscriptionId);
 
-    vm.startBroadcast();
+    vm.startBroadcast(deployerKey);
     VRFCoordinatorV2Mock(vrfCoordinatorV2).addConsumer(
       subscriptionId,
       consumer
@@ -103,10 +104,18 @@ contract AddVrfConsumer is Script {
 
   function addVrfConsumerUsingConfig(address consumer) public {
     HelperConfig helperConfig = new HelperConfig();
-    (, , address vrfCoordinatorV2, , uint64 subscriptionId, , , ) = helperConfig
-      .activeNetworkConfig();
+    (
+      ,
+      ,
+      address vrfCoordinatorV2,
+      ,
+      uint64 subscriptionId,
+      ,
+      ,
+      uint256 deployerKey
+    ) = helperConfig.activeNetworkConfig();
 
-    addVrfConsumer(consumer, vrfCoordinatorV2, subscriptionId);
+    addVrfConsumer(consumer, vrfCoordinatorV2, subscriptionId, deployerKey);
   }
 
   function run() external {

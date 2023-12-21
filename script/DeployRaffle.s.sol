@@ -18,7 +18,7 @@ contract DeployRaffle is Script {
       uint64 subscriptionId,
       uint32 callbackGasLimit,
       address linkToken,
-
+      uint256 deployerKey
     ) = helperConfig.activeNetworkConfig();
 
     // If subscriptionId is 0, we're on Anvil Network and need to create a subscription
@@ -53,7 +53,8 @@ contract DeployRaffle is Script {
     addVrfConsumer.addVrfConsumer(
       address(raffle),
       vrfCoordinatorV2,
-      subscriptionId
+      subscriptionId,
+      deployerKey
     );
 
     return (raffle, helperConfig);
