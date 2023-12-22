@@ -40,14 +40,14 @@ ifeq ($(findstring --network sepolia,$(ARGS)),--network sepolia)
 endif
 
 deploy:
-	@forge script script/DeployRaffle.s.sol:DeployRaffle $(NETWORK_ARGS)
+	@forge script contracts/script/DeployRaffle.s.sol:DeployRaffle $(NETWORK_ARGS)
 
 createSubscription:
-	@forge script script/Interactions.s.sol:CreateSubscription $(NETWORK_ARGS)
+	@forge script contracts/script/Interactions.s.sol:CreateSubscription $(NETWORK_ARGS)
 
 addConsumer:
-	@forge script script/Interactions.s.sol:AddConsumer $(NETWORK_ARGS)
+	@forge script contracts/script/Interactions.s.sol:AddConsumer $(NETWORK_ARGS)
 
 fundSubscription:
-	@forge script script/Interactions.s.sol:FundSubscription $(NETWORK_ARGS)
+	@forge script contracts/script/Interactions.s.sol:FundSubscription $(NETWORK_ARGS)
 
