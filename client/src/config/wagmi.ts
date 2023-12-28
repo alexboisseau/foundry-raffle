@@ -1,11 +1,12 @@
-import { configureChains, createConfig } from "wagmi";
+import { configureChains } from "wagmi";
 import { foundry, sepolia } from "wagmi/chains";
-import { InjectedConnector } from "wagmi/connectors/injected";
-
 import { publicProvider } from "wagmi/providers/public";
 import { alchemyProvider } from "wagmi/providers/alchemy";
+import { defaultWagmiConfig } from "@web3modal/wagmi/react";
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
+const walletConnectProjectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID;
+
+const { chains } = configureChains(
   [sepolia, ...(import.meta.env?.MODE === "development" ? [foundry] : [])],
   [
     alchemyProvider({
@@ -15,16 +16,9 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   ],
 );
 
-export const config = createConfig({
-  connectors: [
-    new InjectedConnector({
-      chains,
-      options: {
-        name: "Injected",
-        shimDisconnect: true,
-      },
-    }),
-  ],
-  publicClient,
-  webSocketPublicClient,
+const config = defaultWagmiConfig({
+  chains,
+  projectId: walletConnectProjectId,
 });
+
+export { config, chains, walletConnectProjectId };
