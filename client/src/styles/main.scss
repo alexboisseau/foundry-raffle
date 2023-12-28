@@ -15,14 +15,17 @@
 body {
   --black: #0e0e0e;
   --white: #f6f6f6;
+  --primary: #c8ff3c;
 
   background-color: var(--black);
-  color: var(--white);
+  color: var(--primary);
   font-family: "RobotoMono-Regular", sans-serif;
+  font-size: 1.125rem;
   margin: 0;
 
   button {
-    color: var(--white);
+    color: var(--primary);
     font-family: "RobotoMono-Regular", sans-serif;
+    font-size: 1.125rem;
   }
 }
