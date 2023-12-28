@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@wagmi/cli": "^1.0.0",
+    "@web3modal/wagmi": "^3.5.3",
     "buffer": "^6.0.3",
     "process": "^0.11.10",
     "react": "^18.2.0",
