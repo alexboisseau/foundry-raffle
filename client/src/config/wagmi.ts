@@ -16,6 +16,7 @@ const { chains, publicClient } = configureChains(SUPPORTED_CHAINS, [
 ]);
 
 const config = createConfig({
+  autoConnect: true,
   connectors: [
     new WalletConnectConnector({
       chains,
