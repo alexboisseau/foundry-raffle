@@ -9,6 +9,8 @@ import {
 } from "./config/wagmi";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { ConnectWallet } from "./components/ConnectWallet/ConnectWallet";
+import { RaffleInformation } from "./components/RaffleInformation/RaffleInformation";
+import { SupportedNetworks } from "./components/SupportedNetworks/SupportedNetworks";
 
 createWeb3Modal({
   wagmiConfig,
@@ -26,7 +28,12 @@ export function App() {
   return (
     <div className="app">
       <WagmiConfig config={wagmiConfig}>
-        <ConnectWallet />
+        <SupportedNetworks>
+          <>
+            <RaffleInformation />
+            <ConnectWallet />
+          </>
+        </SupportedNetworks>
       </WagmiConfig>
     </div>
   );
