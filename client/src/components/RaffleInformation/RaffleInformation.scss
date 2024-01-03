@@ -1,0 +1,14 @@
+.raffle-information {
+  display: flex;
+  flex-direction: column;
+  padding: 0.625rem;
+
+  & > .information {
+    display: flex;
+    gap: 0.625rem;
+
+    & > p {
+      margin: 0.3125rem;
+    }
+  }
+}
