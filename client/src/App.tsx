@@ -29,10 +29,10 @@ export function App() {
     <div className="app">
       <WagmiConfig config={wagmiConfig}>
         <SupportedNetworks>
-          <>
+          <div className="app-children">
             <RaffleInformation />
             <ConnectWallet />
-          </>
+          </div>
         </SupportedNetworks>
       </WagmiConfig>
     </div>
