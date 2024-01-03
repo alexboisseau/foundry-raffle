@@ -4,7 +4,7 @@ import { SupportedChainId } from "../components/types/supported-chain-id";
 
 const raffleAddresses: { [key: SupportedChainId]: Address } = {
   [foundry.id]: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-  [sepolia.id]: "0xCD42e6d06Aa5496B4bCd8e5C8bC8B57dB41A87cC",
+  [sepolia.id]: "0x397872ba49432C9744Dfc62101079cB5401a4F22",
 };
 
 const raffleAbi = [
@@ -77,6 +77,19 @@ const raffleAbi = [
   },
   {
     type: "function",
+    name: "getEnterFee",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+        internalType: "uint256",
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
     name: "getLastRaffleTimestamp",
     inputs: [],
     outputs: [
@@ -110,6 +123,19 @@ const raffleAbi = [
         name: "",
         type: "address[]",
         internalType: "address payable[]",
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "getRaffleIntervalInSeconds",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+        internalType: "uint256",
       },
     ],
     stateMutability: "view",
