@@ -5,9 +5,4 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  & > .app-children {
-    border: 1px solid var(--primary);
-    padding: 25px;
-  }
 }
