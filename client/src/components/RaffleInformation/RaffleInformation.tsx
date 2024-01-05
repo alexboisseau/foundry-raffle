@@ -1,9 +1,9 @@
 import React from "react";
 import "./RaffleInformation.scss";
 import { raffleAbi, raffleAddresses } from "../../constants/raffle-contract";
-import { Address, useContractRead, useContractReads, useNetwork } from "wagmi";
+import { useAccount, useContractRead, useContractReads } from "wagmi";
 import { RaffleInformationLine } from "./RaffleInformationLine";
-import { formatEther } from "viem";
+import { Address, formatEther } from "viem";
 import { formatAddress } from "../../utils/format-address";
 
 // Raffle Amount
@@ -16,7 +16,7 @@ const useRaffleInformation = (): {
   lastWinner: Address;
   enterFee: bigint;
 } => {
-  const { chain } = useNetwork();
+  const { chain } = useAccount();
 
   const contract = {
     address: raffleAddresses[chain!.id],

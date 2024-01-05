@@ -12,16 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wagmi/cli": "^1.0.0",
-    "@web3modal/wagmi": "^3.5.3",
+    "@tanstack/react-query": "^5.17.1",
     "buffer": "^6.0.3",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.69.5",
     "util": "^0.12.4",
-    "viem": "~0.3.36",
-    "wagmi": "^1.0.6"
+    "viem": "2.x",
+    "wagmi": "2.0.0-rc.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.9",

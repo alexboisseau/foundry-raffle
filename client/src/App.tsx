@@ -1,40 +1,29 @@
 import React from "react";
 import "./styles/App.scss";
 
-import { WagmiConfig } from "wagmi";
-import {
-  config as wagmiConfig,
-  chains,
-  walletConnectProjectId,
-} from "./config/wagmi";
-import { createWeb3Modal } from "@web3modal/wagmi/react";
+import { WagmiProvider } from "wagmi";
+import { config as wagmiConfig, walletConnectProjectId } from "./config/wagmi";
 import { ConnectWallet } from "./components/ConnectWallet/ConnectWallet";
 import { RaffleInformation } from "./components/RaffleInformation/RaffleInformation";
 import { SupportedNetworks } from "./components/SupportedNetworks/SupportedNetworks";
+import { EnterRaffle } from "./components/EnterRaffle/EnterRaffle";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-createWeb3Modal({
-  wagmiConfig,
-  chains,
-  projectId: walletConnectProjectId,
-  themeVariables: {
-    "--w3m-font-family": "RobotoMono-Regular",
-    "--w3m-accent": "#c8ff3c",
-    "--w3m-color-mix": "#c8ff3c",
-    "--w3m-color-mix-strength": 3,
-  },
-});
+const queryClient = new QueryClient();
 
 export function App() {
   return (
     <div className="app">
-      <WagmiConfig config={wagmiConfig}>
-        <SupportedNetworks>
-          <div className="app-children">
-            <RaffleInformation />
-            <ConnectWallet />
-          </div>
-        </SupportedNetworks>
-      </WagmiConfig>
+      <WagmiProvider config={wagmiConfig}>
+        <QueryClientProvider client={queryClient}>
+          <SupportedNetworks>
+            <div className="app-children">
+              <RaffleInformation />
+              <ConnectWallet />
+            </div>
+          </SupportedNetworks>
+        </QueryClientProvider>
+      </WagmiProvider>
     </div>
   );
 }
