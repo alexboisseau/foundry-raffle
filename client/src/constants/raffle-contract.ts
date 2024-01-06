@@ -3,7 +3,7 @@ import { foundry, sepolia } from "wagmi/chains";
 import { SupportedChainId } from "../components/types/supported-chain-id";
 
 const raffleAddresses: { [key: SupportedChainId]: Address } = {
-  [foundry.id]: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+  [foundry.id]: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
   [sepolia.id]: "0x397872ba49432C9744Dfc62101079cB5401a4F22",
 };
 
