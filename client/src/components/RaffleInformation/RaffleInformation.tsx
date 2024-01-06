@@ -1,64 +1,36 @@
-import React from "react";
-import "./RaffleInformation.scss";
-import { raffleAbi, raffleAddresses } from "../../constants/raffle-contract";
-import { useAccount, useContractRead, useContractReads } from "wagmi";
+/** COMPONENTS */
 import { RaffleInformationLine } from "./RaffleInformationLine";
-import { Address, formatEther } from "viem";
+
+/** HOOKS */
+import { useGetRaffleEnterFee } from "../../hooks/useGetRaffleEnterFee";
+import { useGetRafflePlayers } from "../../hooks/useGetRafflePlayers";
+import { useGetRaffleLastWinner } from "../../hooks/useGetRaffleLastWinner";
+
+/** STYLES */
+import "./RaffleInformation.scss";
+
+/** VIEM */
+import { formatEther } from "viem";
+
+/** UTILS */
 import { formatAddress } from "../../utils/format-address";
 
-// Raffle Amount
-// Number of players
-// Last winner
-// State of raffle
-
-const useRaffleInformation = (): {
-  players: number;
-  lastWinner: Address;
-  enterFee: bigint;
-} => {
-  const { chain } = useAccount();
-
-  const contract = {
-    address: raffleAddresses[chain!.id],
-    abi: raffleAbi,
-  };
-
-  const { data: players, isError: isGetPlayers } = useContractRead({
-    ...contract,
-    functionName: "getPlayers",
-  });
-
-  const { data: lastWinner, isError: isGetLastWinnerError } = useContractRead({
-    ...contract,
-    functionName: "getLastWinner",
-  });
-
-  const { data: enterFee, isError: isGetEnterFeeError } = useContractRead({
-    ...contract,
-    functionName: "getEnterFee",
-  });
-
-  return {
-    players: !isGetPlayers && players ? players.length : 0,
-    lastWinner: !isGetLastWinnerError && lastWinner ? lastWinner : "0x",
-    enterFee: !isGetEnterFeeError && enterFee ? enterFee : 0n,
-  };
-};
-
 export const RaffleInformation = () => {
-  const { players, lastWinner, enterFee } = useRaffleInformation();
+  const enterFee = useGetRaffleEnterFee();
+  const players = useGetRafflePlayers();
+  const lastWinner = useGetRaffleLastWinner();
+
+  const formattedEnterFee = formatEther(enterFee);
+  const formattedAddress = formatAddress(lastWinner);
 
   return (
     <div className="raffle-information">
       <RaffleInformationLine
         label="Enter Fee (ETH)"
-        value={formatEther(enterFee)}
+        value={formattedEnterFee}
       />
       <RaffleInformationLine label="Players" value={players} />
-      <RaffleInformationLine
-        label="Last Winner"
-        value={formatAddress(lastWinner)}
-      />
+      <RaffleInformationLine label="Last Winner" value={formattedAddress} />
     </div>
   );
 };
