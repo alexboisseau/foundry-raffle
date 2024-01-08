@@ -1,6 +1,6 @@
 /** HOOKS */
-import { useEnterRaffle } from "../../hooks/useEnterRaffle";
-import { Button } from "../ui/Button/Button";
+import { useEnterRaffle } from "../../../../../hooks/useEnterRaffle";
+import { Button } from "../../../../../components/ui/Button/Button";
 
 /** STYLES */
 import "./EnterRaffle.scss";

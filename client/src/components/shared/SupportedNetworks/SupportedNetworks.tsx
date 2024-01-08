@@ -1,7 +1,7 @@
 import React from "react";
 import { useAccount } from "wagmi";
-import { SUPPORTED_CHAINS_IDS } from "../../constants/supported-chains";
-import { ConnectWallet } from "../ConnectWallet/ConnectWallet";
+import { SUPPORTED_CHAINS_IDS } from "../../../constants/supported-chains";
+import { ConnectWallet } from "./ConnectWallet/ConnectWallet";
 
 export const SupportedNetworks = ({ children }: { children: JSX.Element }) => {
   const { chain } = useAccount();

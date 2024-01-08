@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { useAccount } from "wagmi";
-import { formatAddress } from "../../utils/format-address";
+import { formatAddress } from "../../../../utils/format-address";
 import { WalletOptionsModal } from "./WalletOptionsModal/WalletOptionsModal";
-import { Button } from "../ui/Button/Button";
+import { Button } from "../../../ui/Button/Button";
 
 const useConnectWalletButton = () => {
   const { address, isConnected } = useAccount();

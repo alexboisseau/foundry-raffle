@@ -2,9 +2,9 @@
 import { RaffleInformationLine } from "./RaffleInformationLine";
 
 /** HOOKS */
-import { useGetRaffleEnterFee } from "../../hooks/useGetRaffleEnterFee";
-import { useGetRafflePlayers } from "../../hooks/useGetRafflePlayers";
-import { useGetRaffleLastWinner } from "../../hooks/useGetRaffleLastWinner";
+import { useGetRaffleEnterFee } from "../../../../../hooks/useGetRaffleEnterFee";
+import { useGetRafflePlayers } from "../../../../../hooks/useGetRafflePlayers";
+import { useGetRaffleLastWinner } from "../../../../../hooks/useGetRaffleLastWinner";
 
 /** STYLES */
 import "./RaffleInformation.scss";
@@ -13,7 +13,7 @@ import "./RaffleInformation.scss";
 import { formatEther } from "viem";
 
 /** UTILS */
-import { formatAddress } from "../../utils/format-address";
+import { formatAddress } from "../../../../../utils/format-address";
 
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();
