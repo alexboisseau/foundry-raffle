@@ -3,8 +3,8 @@ import { RaffleInformationLine } from "./RaffleInformationLine";
 
 /** HOOKS */
 import { useGetRaffleEnterFee } from "../../../../../hooks/useGetRaffleEnterFee";
-import { useGetRafflePlayers } from "../../../../../hooks/useGetRafflePlayers";
 import { useGetRaffleLastWinner } from "../../../../../hooks/useGetRaffleLastWinner";
+import { useWatchRafflePlayers } from "../../../../../hooks/useWatchRafflePlayers";
 
 /** STYLES */
 import "./RaffleInformation.scss";
@@ -17,8 +17,8 @@ import { formatAddress } from "../../../../../utils/format-address";
 
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();
-  const players = useGetRafflePlayers();
   const lastWinner = useGetRaffleLastWinner();
+  const players = useWatchRafflePlayers();
 
   const formattedEnterFee = formatEther(enterFee);
   const formattedAddress = formatAddress(lastWinner);
