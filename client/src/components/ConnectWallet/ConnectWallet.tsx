@@ -4,7 +4,6 @@ import "./ConnectWallet.scss";
 import { useAccount } from "wagmi";
 import { formatAddress } from "../../utils/format-address";
 import { WalletOptionsModal } from "./WalletOptionsModal/WalletOptionsModal";
-import { AccountModal } from "./AccountModal/AccountModal";
 
 const useConnectWalletButton = () => {
   const { address, isConnected } = useAccount();
@@ -30,9 +29,8 @@ export const ConnectWallet = () => {
         {buttonValue}
       </button>
       {openModal && !isConnected && (
-        <WalletOptionsModal onClose={setOpenModal} />
+        <WalletOptionsModal onClose={() => setOpenModal(false)} />
       )}
-      {openModal && isConnected && <AccountModal />}
     </>
   );
 };

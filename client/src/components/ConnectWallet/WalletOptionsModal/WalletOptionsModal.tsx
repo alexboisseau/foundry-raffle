@@ -1,37 +1,28 @@
 import { useConnect } from "wagmi";
 import "./WalletOptionsModal.scss";
+import { Modal } from "../../ui/Modal/Modal";
 
-export const WalletOptionsModal = ({
-  onClose,
-}: {
-  onClose: (state: boolean) => void;
-}) => {
+const WalletOptionsModalBody = () => {
   const { connectors, connect } = useConnect();
 
-  console.log(connectors);
+  return connectors.map((connector) => (
+    <button
+      className="wallet-option-button"
+      key={connector.uid}
+      onClick={() => connect({ connector })}
+    >
+      {connector.name}
+    </button>
+  ));
+};
 
+export const WalletOptionsModal = ({ onClose }: { onClose: () => void }) => {
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h2>Wallet options</h2>
-          <button className="close-button" onClick={() => onClose(false)}>
-            X
-          </button>
-        </div>
-
-        <div className="modal-body">
-          {connectors.map((connector) => (
-            <button
-              className="wallet-option-button"
-              key={connector.uid}
-              onClick={() => connect({ connector })}
-            >
-              {connector.name}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
+    <Modal
+      modalBody={<WalletOptionsModalBody />}
+      className="wallet-options-modal"
+      modalTitle="Wallet options"
+      onClose={onClose}
+    />
   );
 };
