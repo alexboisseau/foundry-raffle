@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { WalletOptionsModal } from "./WalletOptionsModal/WalletOptionsModal";
 import { Button } from "../../../ui/Button/Button";
 
-export const ConnectWallet = () => {
+export const ConnectWalletButton = () => {
   const [openModal, setOpenModal] = useState(false);
 
   return (

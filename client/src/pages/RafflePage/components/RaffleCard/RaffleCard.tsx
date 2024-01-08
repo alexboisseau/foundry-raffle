@@ -1,6 +1,6 @@
 /** COMPONENTS */
 import { RaffleInformation } from "./RaffleInformation/RaffleInformation";
-import { ConnectWallet } from "../../../../components/shared/SupportedNetworks/ConnectWallet/ConnectWallet";
+import { ConnectWallet } from "../../../../components/shared/SupportedNetworks/ConnectWalletButton/ConnectWalletButton";
 
 /** STYLES */
 import "./RaffleCard.scss";

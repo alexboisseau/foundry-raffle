@@ -1,7 +1,7 @@
 import React from "react";
 import { useAccount } from "wagmi";
 import { SUPPORTED_CHAINS_IDS } from "../../../constants/supported-chains";
-import { ConnectWallet } from "./ConnectWallet/ConnectWallet";
+import { ConnectWalletButton } from "./ConnectWalletButton/ConnectWalletButton";
 import { SwitchNetworkButton } from "./SwitchNetworkButton/SwitchNetworkButton";
 
 export const SupportedNetworks = ({ children }: { children: JSX.Element }) => {
@@ -12,7 +12,7 @@ export const SupportedNetworks = ({ children }: { children: JSX.Element }) => {
 
   return (
     <div>
-      {!isConnected && <ConnectWallet />}
+      {!isConnected && <ConnectWalletButton />}
       {isConnected && !currentNetworkIsSupported && (
         <div>
           <p>Unsupported Network</p>
