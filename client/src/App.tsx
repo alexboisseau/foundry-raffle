@@ -18,9 +18,7 @@ export function App() {
     <div className="app">
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <SupportedNetworks>
-            <RafflePage />
-          </SupportedNetworks>
+          <RafflePage />
         </QueryClientProvider>
       </WagmiProvider>
     </div>
