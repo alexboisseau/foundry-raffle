@@ -1,9 +1,18 @@
 /** HOOKS */
-import { useEnterRaffle } from "../../../../../../hooks/useEnterRaffle";
 import { Button } from "../../../../../../components/ui/Button/Button";
+import { useEnterRaffleButton } from "./useEnterRaffleButton";
 
 export const EnterRaffleButton = () => {
-  const { enterRaffle } = useEnterRaffle();
-
-  return <Button value="Enter Raffle" onClick={enterRaffle} />;
+  const { buttonIsDisabled, thereIsPendingTx, onClick } =
+    useEnterRaffleButton();
+  return (
+    <>
+      <Button
+        disabled={buttonIsDisabled}
+        value="Enter Raffle"
+        onClick={onClick}
+      />
+      {thereIsPendingTx && <p>Waiting for confirmation...</p>}
+    </>
+  );
 };
