@@ -1,8 +1,17 @@
 import { useEnterRaffle } from "../../../../../../hooks/useEnterRaffle";
 
-export const useEnterRaffleButton = () => {
+export const useEnterRaffleButton = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess: () => void;
+  onError: () => void;
+}) => {
   const { enterRaffleStatus, enterRaffleTxStatus, txHash, enterRaffle } =
-    useEnterRaffle();
+    useEnterRaffle({
+      onSuccess,
+      onError,
+    });
 
   const txIsPending = enterRaffleTxStatus === "pending" && txHash !== undefined;
   const buttonIsDisabled = enterRaffleStatus === "pending" || txIsPending;

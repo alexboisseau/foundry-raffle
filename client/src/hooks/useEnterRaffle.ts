@@ -1,13 +1,20 @@
 import {
   useAccount,
   useWaitForTransactionReceipt,
+  useWatchContractEvent,
   useWriteContract,
 } from "wagmi";
 import { raffleAbi, raffleAddresses } from "../constants/raffle-contract";
 import { useGetRaffleEnterFee } from "./useGetRaffleEnterFee";
 import { Hash } from "viem";
 
-export const useEnterRaffle = (): {
+export const useEnterRaffle = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess: () => void;
+  onError: () => void;
+}): {
   enterRaffleStatus: "pending" | "success" | "idle" | "error";
   enterRaffleTxStatus: "pending" | "success" | "idle" | "error";
   txHash: Hash | undefined;
@@ -16,16 +23,34 @@ export const useEnterRaffle = (): {
   const { chain } = useAccount();
   const enterFee = useGetRaffleEnterFee();
 
+  useWatchContractEvent({
+    address: raffleAddresses[chain!.id],
+    abi: raffleAbi,
+    eventName: "Raffle__EnteredRaffle",
+    onLogs(logs) {
+      onSuccess();
+    },
+  });
+
   const {
     writeContract,
     status: enterRaffleStatus,
     data: txHash,
-  } = useWriteContract();
+  } = useWriteContract({
+    mutation: {
+      onError: () => {
+        onError();
+      },
+    },
+  });
 
   const { status: enterRaffleTxStatus } = useWaitForTransactionReceipt({
     hash: txHash,
     query: {
       enabled: txHash !== undefined,
+    },
+    onReplaced: () => {
+      onError();
     },
   });
 

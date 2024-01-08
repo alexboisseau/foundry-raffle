@@ -3,8 +3,10 @@ import { Button } from "../../../../../../components/ui/Button/Button";
 import { useEnterRaffleButton } from "./useEnterRaffleButton";
 
 export const EnterRaffleButton = () => {
-  const { buttonIsDisabled, thereIsPendingTx, onClick } =
-    useEnterRaffleButton();
+  const { buttonIsDisabled, thereIsPendingTx, onClick } = useEnterRaffleButton({
+    onError: () => console.log("Oh noooo ... There is an error"),
+    onSuccess: () => console.log("Yay! You entered the raffle"),
+  });
 
   return (
     <>
