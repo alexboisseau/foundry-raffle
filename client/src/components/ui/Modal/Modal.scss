@@ -21,11 +21,12 @@
     background-color: var(--black);
     z-index: 10;
 
-    width: 250px;
+    min-width: 250px;
 
     .modal-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       gap: 1.25rem;
 
       h2 {
@@ -34,14 +35,7 @@
       }
 
       button {
-        background-color: unset;
-        border: var(--primary) 0.0625rem solid;
-
-        &:hover {
-          cursor: pointer;
-          background-color: var(--primary);
-          color: var(--black);
-        }
+        padding: 0.3125rem 0.625rem;
       }
     }
   }

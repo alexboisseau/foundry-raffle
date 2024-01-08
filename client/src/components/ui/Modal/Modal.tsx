@@ -1,3 +1,4 @@
+import { Button } from "../Button/Button";
 import "./Modal.scss";
 
 export const Modal = ({
@@ -16,9 +17,7 @@ export const Modal = ({
       <div className="modal-content">
         <div className="modal-header">
           <h2 className="modal-title">{modalTitle}</h2>
-          <button className="close-button" onClick={onClose}>
-            X
-          </button>
+          <Button value="X" onClick={onClose} />
         </div>
         <div className={`modal-body`}>{modalBody}</div>
       </div>

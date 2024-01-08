@@ -1,5 +1,6 @@
 /** HOOKS */
 import { useEnterRaffle } from "../../hooks/useEnterRaffle";
+import { Button } from "../ui/Button/Button";
 
 /** STYLES */
 import "./EnterRaffle.scss";
@@ -7,9 +8,5 @@ import "./EnterRaffle.scss";
 export const EnterRaffle = () => {
   const { enterRaffle } = useEnterRaffle();
 
-  return (
-    <button className="enter-raffle" onClick={enterRaffle}>
-      Enter Raffle
-    </button>
-  );
+  return <Button value="Enter Raffle" onClick={enterRaffle} />;
 };

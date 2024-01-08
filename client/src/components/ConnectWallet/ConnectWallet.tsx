@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./ConnectWallet.scss";
 
 import { useAccount } from "wagmi";
 import { formatAddress } from "../../utils/format-address";
 import { WalletOptionsModal } from "./WalletOptionsModal/WalletOptionsModal";
+import { Button } from "../ui/Button/Button";
 
 const useConnectWalletButton = () => {
   const { address, isConnected } = useAccount();
@@ -25,9 +25,7 @@ export const ConnectWallet = () => {
 
   return (
     <>
-      <button onClick={() => setOpenModal(true)} className="connect-wallet">
-        {buttonValue}
-      </button>
+      <Button onClick={() => setOpenModal(true)} value={buttonValue} />
       {openModal && !isConnected && (
         <WalletOptionsModal onClose={() => setOpenModal(false)} />
       )}
