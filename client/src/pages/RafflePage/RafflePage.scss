@@ -1,0 +1,15 @@
+.raffle-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 5rem;
+    font-family: "RobotoMono-Bold", "sans-serif";
+    text-transform: uppercase;
+    text-align: center;
+    margin: 1.25rem 0;
+  }
+}

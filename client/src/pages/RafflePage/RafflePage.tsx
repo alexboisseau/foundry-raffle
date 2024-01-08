@@ -1,10 +1,11 @@
 import { RaffleCard } from "./components/RaffleCard/RaffleCard";
+import "./RafflePage.scss";
 
 export const RafflePage = () => {
   return (
-    <div>
+    <main className="raffle-page">
       <h1>Decentralized Raffle $</h1>
       <RaffleCard />
-    </div>
+    </main>
   );
 };

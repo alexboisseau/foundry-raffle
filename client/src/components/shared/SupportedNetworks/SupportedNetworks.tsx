@@ -11,7 +11,7 @@ export const SupportedNetworks = ({ children }: { children: JSX.Element }) => {
     chain && SUPPORTED_CHAINS_IDS.includes(chain.id);
 
   return (
-    <div>
+    <>
       {!isConnected && <ConnectWalletButton />}
       {isConnected && !currentNetworkIsSupported && (
         <div>
@@ -23,6 +23,6 @@ export const SupportedNetworks = ({ children }: { children: JSX.Element }) => {
         chain &&
         SUPPORTED_CHAINS_IDS.includes(chain.id) &&
         children}
-    </div>
+    </>
   );
 };
