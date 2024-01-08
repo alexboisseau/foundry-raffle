@@ -28,6 +28,7 @@ export const useEnterRaffle = ({
     abi: raffleAbi,
     eventName: "Raffle__EnteredRaffle",
     onLogs(logs) {
+      console.log("Logs : ", logs);
       onSuccess();
     },
   });
@@ -38,7 +39,8 @@ export const useEnterRaffle = ({
     data: txHash,
   } = useWriteContract({
     mutation: {
-      onError: () => {
+      onError: (error: any) => {
+        console.log("Error : ", error);
         onError();
       },
     },
