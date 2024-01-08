@@ -1,6 +1,6 @@
 import { Address } from "viem";
 import { foundry, sepolia } from "wagmi/chains";
-import { SupportedChainId } from "../components/types/supported-chain-id";
+import { SupportedChainId } from "../types/supported-chain-id";
 
 const raffleAddresses: { [key: SupportedChainId]: Address } = {
   [foundry.id]: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
