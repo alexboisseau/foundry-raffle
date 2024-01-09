@@ -4,7 +4,6 @@ import { RaffleInformationLine } from "./RaffleInformationLine";
 /** HOOKS */
 import { useGetRaffleEnterFee } from "../../../../../hooks/useGetRaffleEnterFee";
 import { useGetRaffleLastWinner } from "../../../../../hooks/useGetRaffleLastWinner";
-import { useWatchRafflePlayers } from "../../../../../hooks/useWatchRafflePlayers";
 
 /** STYLES */
 import "./RaffleInformation.scss";
@@ -14,11 +13,12 @@ import { formatEther } from "viem";
 
 /** UTILS */
 import { formatAddress } from "../../../../../utils/format-address";
+import { useGetRafflePlayers } from "../../../../../hooks/useGetRafflePlayers";
 
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();
   const lastWinner = useGetRaffleLastWinner();
-  const players = useWatchRafflePlayers();
+  const players = useGetRafflePlayers();
 
   const formattedEnterFee = formatEther(enterFee);
   const formattedAddress = formatAddress(lastWinner);
