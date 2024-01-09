@@ -5,7 +5,7 @@ import { formatMilliseconds } from "../../../../utils/format-milliseconds";
 export const NextRaffleWithdraw = () => {
   const { nextWithdraw } = useNextRaffleWithdraw();
   const [formattedTimeUntilNextWithdraw, setFormattedTimeUntilNextWithdraw] =
-    useState("00:00:00");
+    useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,6 +20,8 @@ export const NextRaffleWithdraw = () => {
           setFormattedTimeUntilNextWithdraw(
             "Interval is completed, calculation should start soon",
           );
+
+          return;
         } else {
           setFormattedTimeUntilNextWithdraw("00:00:00");
         }
