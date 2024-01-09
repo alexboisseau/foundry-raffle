@@ -101,7 +101,12 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     override
     returns (bool upkeepNeeded, bytes memory /*performData*/)
   {
-    upkeepNeeded = winnerCanBePicked();
+    bool raffleIsOpen = s_raffleState == RaffleState.OPEN;
+    bool raffleHasPlayers = s_players.length > 0;
+    bool enoughTimePassed = block.timestamp >
+      s_lastRaffleTimestamp + i_raffleIntervalInSeconds;
+
+    upkeepNeeded = enoughTimePassed && raffleIsOpen && raffleHasPlayers;
   }
 
   function fulfillRandomWords(
@@ -131,15 +136,6 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
       i_callbackGasLimit,
       NUM_WORDS
     );
-  }
-
-  function winnerCanBePicked() private view returns (bool) {
-    bool raffleIsOpen = s_raffleState == RaffleState.OPEN;
-    bool raffleHasPlayers = s_players.length > 0;
-    bool enoughTimePassed = block.timestamp >
-      s_lastRaffleTimestamp + i_raffleIntervalInSeconds;
-
-    return enoughTimePassed && raffleIsOpen && raffleHasPlayers;
   }
 
   function pickRandomPlayer(
