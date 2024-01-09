@@ -213,6 +213,12 @@ const raffleAbi = [
         indexed: true,
         internalType: "address",
       },
+      {
+        name: "lastTimestamp",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256",
+      },
     ],
     anonymous: false,
   },
