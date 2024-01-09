@@ -148,15 +148,6 @@ contract RaffleTest is Test {
     assert(upkeepNeeded == false);
   }
 
-  function testCheckUpkeepReturnsFalseWhenNotEnoughPlayersHaveEntered() public {
-    vm.warp(block.timestamp + raffleIntervalInSeconds + 1);
-    vm.roll(block.number + 1);
-
-    (bool upkeepNeeded, ) = raffle.checkUpkeep("");
-
-    assert(upkeepNeeded == false);
-  }
-
   function testUpkeepReturnsTrueWhenParametersAreGood()
     public
     raffleEntered
@@ -213,6 +204,16 @@ contract RaffleTest is Test {
     uint256 state = uint256(raffle.getRaffleState());
 
     assert(state == 1);
+  }
+
+  function testPerformUpkeepUpdateLastTimestampWithNoPlayers()
+    public
+    timePassed
+  {
+    raffle.performUpkeep("");
+    uint256 lastTimestamp = uint256(raffle.getLastRaffleTimestamp());
+
+    assert(lastTimestamp == block.timestamp);
   }
 
   ///////////////////////

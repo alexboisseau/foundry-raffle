@@ -89,6 +89,12 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
       );
     }
 
+    if (s_players.length == 0) {
+      s_raffleState = RaffleState.OPEN;
+      s_lastRaffleTimestamp = block.timestamp;
+      return;
+    }
+
     s_raffleState = RaffleState.CALCULATING;
     sendVrfRequest();
   }
@@ -102,11 +108,10 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     returns (bool upkeepNeeded, bytes memory /*performData*/)
   {
     bool raffleIsOpen = s_raffleState == RaffleState.OPEN;
-    bool raffleHasPlayers = s_players.length > 0;
     bool enoughTimePassed = block.timestamp >
       s_lastRaffleTimestamp + i_raffleIntervalInSeconds;
 
-    upkeepNeeded = enoughTimePassed && raffleIsOpen && raffleHasPlayers;
+    upkeepNeeded = enoughTimePassed && raffleIsOpen;
   }
 
   function fulfillRandomWords(
