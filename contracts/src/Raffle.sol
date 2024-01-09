@@ -22,7 +22,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   );
 
   event Raffle__EnteredRaffle(address indexed player, uint256 players);
-  event Raffle__PickedWinner(address indexed winner);
+  event Raffle__PickedWinner(address indexed winner, uint256 lastTimestamp);
 
   enum RaffleState {
     OPEN,
@@ -115,7 +115,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     s_lastRaffleTimestamp = block.timestamp;
     s_lastWinner = winner;
 
-    emit Raffle__PickedWinner(winner);
+    emit Raffle__PickedWinner(winner, s_lastRaffleTimestamp);
 
     (bool success, ) = winner.call{value: address(this).balance}("");
     if (success == false) {
