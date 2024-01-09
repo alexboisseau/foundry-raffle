@@ -8,7 +8,6 @@ export const NextRaffleWithdraw = () => {
     useState("00:00:00");
 
   useEffect(() => {
-    console.log("test");
     const interval = setInterval(() => {
       const currentTimeStamp = Date.now();
       const timeUntilNextWithdraw = nextWithdraw - currentTimeStamp;
@@ -17,7 +16,13 @@ export const NextRaffleWithdraw = () => {
         const formattedTime = formatMilliseconds(timeUntilNextWithdraw);
         setFormattedTimeUntilNextWithdraw(formattedTime);
       } catch (error) {
-        setFormattedTimeUntilNextWithdraw("00:00:00");
+        if (timeUntilNextWithdraw <= 0) {
+          setFormattedTimeUntilNextWithdraw(
+            "Interval is completed, calculation should start soon",
+          );
+        } else {
+          setFormattedTimeUntilNextWithdraw("00:00:00");
+        }
       }
     }, 1000);
 
