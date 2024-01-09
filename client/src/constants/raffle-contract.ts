@@ -4,7 +4,7 @@ import { SupportedChainId } from "../types/supported-chain-id";
 
 const raffleAddresses: { [key: SupportedChainId]: Address } = {
   [foundry.id]: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-  [sepolia.id]: "0x397872ba49432C9744Dfc62101079cB5401a4F22",
+  [sepolia.id]: "0x2d2f0949ad560f80AF38AD05F0C2578473e06bC5",
 };
 
 const raffleAbi = [
@@ -193,6 +193,12 @@ const raffleAbi = [
         type: "address",
         indexed: true,
         internalType: "address",
+      },
+      {
+        name: "players",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256",
       },
     ],
     anonymous: false,
