@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNextRaffleWithdraw } from "./useNextRaffleWithdraw";
 import { formatMilliseconds } from "../../../../utils/format-milliseconds";
+import "./NextRaffleWithdraw.scss";
 
 export const NextRaffleWithdraw = () => {
   const { nextWithdraw } = useNextRaffleWithdraw();
@@ -31,5 +32,9 @@ export const NextRaffleWithdraw = () => {
     return () => clearInterval(interval);
   }, [nextWithdraw]);
 
-  return <h2>Last withdraw in : {formattedTimeUntilNextWithdraw}</h2>;
+  return (
+    <h2 className="next-raffle-withdraw">
+      Last withdraw in : {formattedTimeUntilNextWithdraw}
+    </h2>
+  );
 };

@@ -1,14 +1,13 @@
 .raffle-information {
   display: flex;
   flex-direction: column;
-  padding: 0.625rem 0;
+  gap: 0.625rem;
 
   & > .information {
     display: flex;
-    gap: 0.625rem;
-
+    gap: 0.3125rem;
     & > p {
-      margin: 0.3125rem 0;
+      margin: 0;
     }
   }
 }
