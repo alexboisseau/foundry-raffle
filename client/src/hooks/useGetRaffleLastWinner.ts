@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export const useGetRaffleLastWinner = (): Address => {
   const { chain } = useAccount();
-  const [lastWinner, setLastWinner] = useState<Address>("0x");
+  const [lastWinner, setLastWinner] = useState<Address | null>(null);
 
   const contract = {
     address: raffleAddresses[chain!.id],
