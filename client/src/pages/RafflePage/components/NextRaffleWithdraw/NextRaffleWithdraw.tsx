@@ -19,7 +19,7 @@ export const NextRaffleWithdraw = () => {
       } catch (error) {
         if (timeUntilNextWithdraw <= 0) {
           setFormattedTimeUntilNextWithdraw(
-            "Interval is completed, calculation should start soon",
+            "Interval is completed, calculation can take a few minutes",
           );
 
           return;
