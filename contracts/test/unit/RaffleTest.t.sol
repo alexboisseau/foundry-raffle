@@ -9,7 +9,10 @@ import {DeployRaffle} from "../../script/DeployRaffle.s.sol";
 import {VRFCoordinatorV2Mock} from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
 
 contract RaffleTest is Test {
-  event Raffle__EnteredRaffle(address indexed player, uint256 players);
+  event Raffle__EnteredRaffle(
+    address indexed player,
+    address payable[] players
+  );
 
   Raffle public raffle;
   HelperConfig public helperConfig;
@@ -112,9 +115,10 @@ contract RaffleTest is Test {
   }
 
   function testEventIsEmittedWhenPlayerEnters() public {
-    uint256 players = 1;
     vm.prank(PLAYER);
     vm.expectEmit(true, false, false, true, address(raffle));
+    address payable[] memory players = new address payable[](1);
+    players[0] = payable(PLAYER);
 
     emit Raffle__EnteredRaffle(PLAYER, players);
 

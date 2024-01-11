@@ -21,7 +21,10 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     uint256 raffleState
   );
 
-  event Raffle__EnteredRaffle(address indexed player, uint256 players);
+  event Raffle__EnteredRaffle(
+    address indexed player,
+    address payable[] players
+  );
   event Raffle__PickedWinner(address indexed winner, uint256 lastTimestamp);
 
   enum RaffleState {
@@ -75,7 +78,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     address payable player = payable(msg.sender);
     s_players.push(player);
 
-    emit Raffle__EnteredRaffle(player, s_players.length);
+    emit Raffle__EnteredRaffle(player, s_players);
   }
 
   function performUpkeep(bytes calldata /* performData */) external override {
