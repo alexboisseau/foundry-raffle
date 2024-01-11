@@ -1,4 +1,17 @@
 .next-raffle-withdraw {
-  font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
   margin-bottom: 40px;
+  background-color: var(--primary);
+  border-radius: 0.3125rem;
+  color: #2b370d;
+  padding: 10px 20px;
+
+  h2 {
+    font-size: 20px;
+    margin: 0;
+    font-family: "RobotoMono-Bold", "sans-serif";
+  }
 }

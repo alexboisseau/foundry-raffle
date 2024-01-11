@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNextRaffleWithdraw } from "./useNextRaffleWithdraw";
 import { formatMilliseconds } from "../../../../utils/format-milliseconds";
+import { IoIosHourglass } from "react-icons/io";
 import "./NextRaffleWithdraw.scss";
 
 export const NextRaffleWithdraw = () => {
@@ -33,8 +34,9 @@ export const NextRaffleWithdraw = () => {
   }, [nextWithdraw]);
 
   return (
-    <h2 className="next-raffle-withdraw">
-      Last withdraw in : {formattedTimeUntilNextWithdraw}
-    </h2>
+    <div className="next-raffle-withdraw">
+      <IoIosHourglass size={20} />
+      <h2 className="">Last withdraw in : {formattedTimeUntilNextWithdraw}</h2>
+    </div>
   );
 };
