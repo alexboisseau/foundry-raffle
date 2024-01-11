@@ -29,7 +29,7 @@ export const RaffleInformation = () => {
         label="Enter Fee (ETH)"
         value={formattedEnterFee}
       />
-      <RaffleInformationLine label="Players" value={players} />
+      <RaffleInformationLine label="Players" value={players.size} />
       <RaffleInformationLine label="Last Winner" value={formattedAddress} />
     </div>
   );
