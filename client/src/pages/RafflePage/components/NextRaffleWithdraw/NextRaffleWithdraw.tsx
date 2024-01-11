@@ -38,7 +38,7 @@ export const NextRaffleWithdraw = () => {
   return (
     <div className="next-raffle-withdraw">
       {isSm && <IoIosHourglass size={20} />}
-      <h2 className="">Last withdraw in : {formattedTimeUntilNextWithdraw}</h2>
+      <h2 className="">Next withdraw in : {formattedTimeUntilNextWithdraw}</h2>
     </div>
   );
 };
