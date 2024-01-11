@@ -1,12 +1,12 @@
 import {
   useAccount,
   useWaitForTransactionReceipt,
-  useWatchContractEvent,
   useWriteContract,
 } from "wagmi";
 import { raffleAbi, raffleAddresses } from "../constants/raffle-contract";
 import { useGetRaffleEnterFee } from "./useGetRaffleEnterFee";
 import { Hash } from "viem";
+import { useWatchEnteredRaffleEvent } from "./useWatchEnteredRaffleEvent";
 
 export const useEnterRaffle = ({
   onSuccess,
@@ -22,13 +22,8 @@ export const useEnterRaffle = ({
 } => {
   const { chain } = useAccount();
   const enterFee = useGetRaffleEnterFee();
-
-  useWatchContractEvent({
-    address: raffleAddresses[chain!.id],
-    abi: raffleAbi,
-    eventName: "Raffle__EnteredRaffle",
-    onLogs(logs) {
-      console.log("Logs : ", logs);
+  useWatchEnteredRaffleEvent({
+    onLogs: () => {
       onSuccess();
     },
   });

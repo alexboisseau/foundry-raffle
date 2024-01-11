@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useAccount, useReadContract, useWatchContractEvent } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import { raffleAbi, raffleAddresses } from "../constants/raffle-contract";
 import { useWatchPickedWinnerEvent } from "./useWatchPickedWinnerEvent";
+import { useWatchEnteredRaffleEvent } from "./useWatchEnteredRaffleEvent";
 
 export const useGetRafflePlayers = () => {
   const { chain } = useAccount();
@@ -10,6 +11,12 @@ export const useGetRafflePlayers = () => {
   useWatchPickedWinnerEvent({
     onLogs: () => {
       setPlayers(0);
+    },
+  });
+
+  useWatchEnteredRaffleEvent({
+    onLogs(argsLog) {
+      setPlayers(argsLog.players);
     },
   });
 
@@ -23,15 +30,6 @@ export const useGetRafflePlayers = () => {
     functionName: "getPlayers",
     query: {
       gcTime: 0,
-    },
-  });
-
-  useWatchContractEvent({
-    ...contract,
-    eventName: "Raffle__EnteredRaffle",
-    onLogs(logs) {
-      const players = logs[0].args.players;
-      setPlayers(players ? Number(players) : null);
     },
   });
 
