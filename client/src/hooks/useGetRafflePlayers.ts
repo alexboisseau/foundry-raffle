@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { useAccount, useReadContract, useWatchContractEvent } from "wagmi";
 import { raffleAbi, raffleAddresses } from "../constants/raffle-contract";
+import { useWatchPickedWinnerEvent } from "./useWatchPickedWinnerEvent";
 
 export const useGetRafflePlayers = () => {
   const { chain } = useAccount();
   const [players, setPlayers] = useState<number | null>(null);
+
+  useWatchPickedWinnerEvent({
+    onLogs: () => {
+      setPlayers(0);
+    },
+  });
 
   const contract = {
     address: raffleAddresses[chain!.id],
@@ -25,15 +32,6 @@ export const useGetRafflePlayers = () => {
     onLogs(logs) {
       const players = logs[0].args.players;
       setPlayers(players ? Number(players) : null);
-    },
-  });
-
-  useWatchContractEvent({
-    ...contract,
-    eventName: "Raffle__PickedWinner",
-    onLogs(logs) {
-      console.log("Picked winner", logs);
-      setPlayers(0);
     },
   });
 
