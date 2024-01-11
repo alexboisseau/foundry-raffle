@@ -2,7 +2,6 @@ import React from "react";
 
 /** COMPONENTS */
 import { RafflePage } from "./pages/RafflePage/RafflePage";
-import { SupportedNetworks } from "./components/shared/SupportedNetworks/SupportedNetworks";
 
 /** TANSTACK */
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
