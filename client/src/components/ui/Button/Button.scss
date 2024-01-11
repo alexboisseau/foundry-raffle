@@ -1,7 +1,10 @@
 .button {
   background-color: unset;
   border: 0.0625rem solid var(--primary);
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
   padding: 0.625rem 0.9375rem;
 
   &:hover {

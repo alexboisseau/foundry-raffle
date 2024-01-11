@@ -2,6 +2,7 @@
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { useEnterRaffleButton } from "./useEnterRaffleButton";
 import { toast } from "react-hot-toast";
+import { IoTicketOutline } from "react-icons/io5";
 
 export const EnterRaffleButton = () => {
   const { buttonIsDisabled, thereIsPendingTx, onClick } = useEnterRaffleButton({
@@ -17,6 +18,7 @@ export const EnterRaffleButton = () => {
     <>
       <Button
         disabled={buttonIsDisabled}
+        icon={<IoTicketOutline size={20} />}
         value="Enter Raffle"
         onClick={onClick}
       />
