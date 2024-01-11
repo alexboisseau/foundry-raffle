@@ -1,15 +1,47 @@
+@import "../../styles/breakpoints.scss";
+
 .raffle-page {
   height: 100vh;
+  padding: 0 0.625rem;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1.25rem;
 
   h1 {
     font-size: 5rem;
     font-family: "RobotoMono-Bold", "sans-serif";
     text-transform: uppercase;
     text-align: center;
-    margin: 1.25rem 0;
+    margin: 0 0 2.5rem 0; // bottom
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .raffle-page {
+    h1 {
+      margin-bottom: 0;
+      font-size: 1.375rem;
+    }
+  }
+}
+
+@media screen and (min-width: calc($sm + 1px)) and (max-width: $lg) {
+  .raffle-page {
+    h1 {
+      margin-bottom: 1.25rem;
+      font-size: 2.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: calc($lg + 1px)) and (max-width: $xl) {
+  .raffle-page {
+    h1 {
+      margin-bottom: 1.875rem;
+      font-size: 3.75rem;
+    }
   }
 }
