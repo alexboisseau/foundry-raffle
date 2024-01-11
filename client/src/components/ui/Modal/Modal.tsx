@@ -16,7 +16,7 @@ export const Modal = ({
     <div className={`modal ${className}`}>
       <div className="modal-content">
         <div className="modal-header">
-          <h2 className="modal-title">{modalTitle}</h2>
+          <h3 className="modal-title">{modalTitle}</h3>
           <Button value="X" onClick={onClose} />
         </div>
         <div className={`modal-body`}>{modalBody}</div>
