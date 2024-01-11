@@ -3,30 +3,27 @@ import { useAccount, useReadContract } from "wagmi";
 import { raffleAbi, raffleAddresses } from "../constants/raffle-contract";
 import { useWatchPickedWinnerEvent } from "./useWatchPickedWinnerEvent";
 import { useWatchEnteredRaffleEvent } from "./useWatchEnteredRaffleEvent";
+import { Address } from "viem";
 
-export const useGetRafflePlayers = () => {
+export const useGetRafflePlayers = (): Set<Address> => {
   const { chain } = useAccount();
-  const [players, setPlayers] = useState<number | null>(null);
+  const [players, setPlayers] = useState<Set<Address> | null>(null);
 
   useWatchPickedWinnerEvent({
     onLogs: () => {
-      setPlayers(0);
+      setPlayers(new Set([]));
     },
   });
 
   useWatchEnteredRaffleEvent({
     onLogs(argsLog) {
-      setPlayers(argsLog.players);
+      setPlayers(new Set(argsLog.players));
     },
   });
 
-  const contract = {
+  const { data: intialPlayers, isError: intialPlayersError } = useReadContract({
     address: raffleAddresses[chain!.id],
     abi: raffleAbi,
-  };
-
-  const { data: intialPlayers, isError: intialPlayersError } = useReadContract({
-    ...contract,
     functionName: "getPlayers",
     query: {
       gcTime: 0,
@@ -34,6 +31,7 @@ export const useGetRafflePlayers = () => {
   });
 
   return (
-    players ?? (!intialPlayersError && intialPlayers ? intialPlayers.length : 0)
+    players ??
+    (!intialPlayersError && intialPlayers ? new Set(intialPlayers) : new Set())
   );
 };
