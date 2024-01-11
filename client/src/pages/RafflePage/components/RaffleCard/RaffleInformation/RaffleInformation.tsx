@@ -18,7 +18,7 @@ import { useGetRafflePlayers } from "../../../../../hooks/useGetRafflePlayers";
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();
   const lastWinner = useGetRaffleLastWinner();
-  const players = useGetRafflePlayers();
+  const { players, userTickets } = useGetRafflePlayers();
 
   const formattedEnterFee = formatEther(enterFee);
   const formattedAddress = formatAddress(lastWinner);
@@ -29,8 +29,9 @@ export const RaffleInformation = () => {
         label="Enter Fee (ETH)"
         value={formattedEnterFee}
       />
-      <RaffleInformationLine label="Players" value={players.size} />
+      <RaffleInformationLine label="Players" value={players.length} />
       <RaffleInformationLine label="Last Winner" value={formattedAddress} />
+      <RaffleInformationLine label="Your tickets" value={userTickets} />
     </div>
   );
 };
