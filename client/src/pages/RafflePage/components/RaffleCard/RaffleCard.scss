@@ -1,11 +1,21 @@
+@import "../../../../styles/breakpoints.scss";
+
 .raffle-card {
-  padding: 25px;
   background-color: #1c1c1c;
   border: 0.1875rem solid #c8ff3c14;
-  box-shadow: 2px 2px 30px #000;
+  box-shadow: 0.125rem 0.125rem 1.875rem #000;
   border-radius: 0.3125rem;
+
+  padding: 1.5625rem;
 
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+}
+
+@media screen and (max-width: $sm) {
+  .raffle-card {
+    padding: 0.9375rem;
+    min-width: 70%;
+  }
 }
