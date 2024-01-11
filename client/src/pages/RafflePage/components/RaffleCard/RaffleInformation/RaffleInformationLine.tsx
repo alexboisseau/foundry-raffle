@@ -1,3 +1,5 @@
+import { useBreakpoints } from "../../../../../hooks/useBreakpoints";
+
 const LINE_CHARS = 40;
 
 export const RaffleInformationLine = ({
@@ -7,6 +9,7 @@ export const RaffleInformationLine = ({
   label: string;
   value: any;
 }) => {
+  const { isSm } = useBreakpoints();
   const labelChars = label.length;
   const valueChars = value.toString().length;
   const dots = LINE_CHARS - labelChars - valueChars;
@@ -14,13 +17,19 @@ export const RaffleInformationLine = ({
 
   return (
     <div className="information">
-      <p>{label}</p>
       <p>
-        {dotsArray.map((dot, index) => (
-          <span key={index}>{dot}</span>
-        ))}
+        {label}
+        {!isSm && ":"}
       </p>
-      <p>{value}</p>
+      {isSm && (
+        <p>
+          {dotsArray.map((dot, index) => (
+            <span key={index}>{dot}</span>
+          ))}
+        </p>
+      )}
+
+      <p className="information-value">{value}</p>
     </div>
   );
 };

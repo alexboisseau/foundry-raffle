@@ -1,3 +1,5 @@
+@import "../../../../../styles/breakpoints.scss";
+
 .raffle-information {
   display: flex;
   flex-direction: column;
@@ -6,8 +8,26 @@
   & > .information {
     display: flex;
     gap: 0.3125rem;
+
     & > p {
       margin: 0;
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .raffle-information {
+    & > .information {
+      flex-direction: column;
+      gap: 0;
+
+      & > p {
+        font-size: 1rem;
+      }
+
+      & > .information-value {
+        font-family: "RobotoMono-Bold", "sans-serif";
+      }
     }
   }
 }
