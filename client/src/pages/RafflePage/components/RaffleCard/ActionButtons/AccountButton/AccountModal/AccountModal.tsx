@@ -3,6 +3,7 @@ import { Modal } from "../../../../../../../components/ui/Modal/Modal";
 import { formatAddress } from "../../../../../../../utils/format-address";
 import { Button } from "../../../../../../../components/ui/Button/Button";
 import { SwitchNetworkButton } from "../../../../../../../components/shared/SupportedNetworks/SwitchNetworkButton/SwitchNetworkButton";
+import { TbSquareArrowLeftFilled } from "react-icons/tb";
 import "./AccountModal.scss";
 
 const AccountModalBody = () => {
@@ -11,7 +12,11 @@ const AccountModalBody = () => {
   return (
     <div className="action-buttons">
       <SwitchNetworkButton />
-      <Button onClick={() => disconnect()} value="Disconnect" />
+      <Button
+        icon={<TbSquareArrowLeftFilled size={20} />}
+        onClick={() => disconnect()}
+        value="Disconnect"
+      />
     </div>
   );
 };
