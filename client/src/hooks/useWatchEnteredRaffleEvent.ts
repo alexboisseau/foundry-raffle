@@ -4,7 +4,7 @@ import { Address } from "viem";
 
 type EnteredRaffleEventArgsLog = {
   player: Address;
-  players: number;
+  players: Address[];
 };
 
 export const useWatchEnteredRaffleEvent = ({
@@ -20,7 +20,9 @@ export const useWatchEnteredRaffleEvent = ({
     eventName: "Raffle__EnteredRaffle",
     onLogs(logs) {
       const player = logs[0].args.player ?? "0x";
-      const players = logs[0].args.players ? Number(logs[0].args.players) : 0;
+      const players = logs[0].args.players
+        ? new Array(...logs[0].args.players)
+        : [];
 
       onLogs({ player, players });
     },
