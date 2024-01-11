@@ -3,11 +3,13 @@ import { useNextRaffleWithdraw } from "./useNextRaffleWithdraw";
 import { formatMilliseconds } from "../../../../utils/format-milliseconds";
 import { IoIosHourglass } from "react-icons/io";
 import "./NextRaffleWithdraw.scss";
+import { useBreakpoints } from "../../../../hooks/useBreakpoints";
 
 export const NextRaffleWithdraw = () => {
   const { nextWithdraw } = useNextRaffleWithdraw();
   const [formattedTimeUntilNextWithdraw, setFormattedTimeUntilNextWithdraw] =
     useState("");
+  const { isSm } = useBreakpoints();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,7 +37,7 @@ export const NextRaffleWithdraw = () => {
 
   return (
     <div className="next-raffle-withdraw">
-      <IoIosHourglass size={20} />
+      {isSm && <IoIosHourglass size={20} />}
       <h2 className="">Last withdraw in : {formattedTimeUntilNextWithdraw}</h2>
     </div>
   );
