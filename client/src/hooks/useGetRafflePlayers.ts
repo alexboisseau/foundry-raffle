@@ -34,17 +34,23 @@ export const useGetRafflePlayers = (): {
   });
 
   const getUserTicketsCount = () => {
-    const arrayToFilter =
-      players ?? (!intialPlayersError && intialPlayers) ? intialPlayers : [];
+    if (players !== null) {
+      return players.filter((player) => player === address).length;
+    } else if (!intialPlayersError && intialPlayers) {
+      return intialPlayers.filter((player) => player === address).length;
+    }
 
-    return arrayToFilter!.filter((player) => player === address).length;
+    return 0;
   };
 
   const getUniquePlayers = () => {
-    const from =
-      players ?? (!intialPlayersError && intialPlayers) ? intialPlayers : [];
+    if (players !== null) {
+      return [...new Set(players)];
+    } else if (!intialPlayersError && intialPlayers) {
+      return [...new Set(intialPlayers)];
+    }
 
-    return [...new Set(from)];
+    return [];
   };
 
   return {
