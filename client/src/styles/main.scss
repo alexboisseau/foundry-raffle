@@ -12,24 +12,17 @@
   font-style: normal;
 }
 
+@import "./colors.scss";
+
 body {
-  --black: #131313;
-  --white: #f6f6f6;
-
-  --light-grey: #353535;
-  --grey: #c8ff3c14;
-  --dark-grey: #1c1c1c;
-
-  --primary: #c8ff3c;
-
-  background-color: var(--black);
-  color: var(--primary);
+  background-color: $black;
+  color: $primary;
   font-family: "RobotoMono-Regular", sans-serif;
   font-size: 1.125rem;
   margin: 0;
 
   button {
-    color: var(--primary);
+    color: $primary;
     font-family: "RobotoMono-Regular", sans-serif;
     font-size: 1.125rem;
   }

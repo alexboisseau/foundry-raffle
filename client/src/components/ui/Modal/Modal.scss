@@ -1,3 +1,5 @@
+@import "../../../styles/colors.scss";
+
 .modal {
   background-color: #00000080;
   width: 100vw;
@@ -18,7 +20,7 @@
     gap: 1.25rem;
 
     padding: 1.25rem 1.875rem;
-    background-color: var(--black);
+    background-color: $black;
     z-index: 10;
 
     min-width: 250px;

@@ -1,6 +1,8 @@
+@import "../../../styles/colors.scss";
+
 .button {
   background-color: unset;
-  border: 0.0625rem solid var(--primary);
+  border: 0.0625rem solid $primary;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,14 +10,14 @@
   padding: 0.625rem 0.9375rem;
 
   &:hover:enabled {
-    background-color: var(--primary);
-    color: var(--black);
+    background-color: $primary;
+    color: $black;
     cursor: pointer;
   }
 
   &:disabled {
-    border: 0.0625rem solid var(--light-grey);
-    color: var(--light-grey);
+    border: 0.0625rem solid $light-grey;
+    color: $light-grey;
     cursor: not-allowed;
   }
 }
