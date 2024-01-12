@@ -7,9 +7,15 @@
   gap: 0.625rem;
   padding: 0.625rem 0.9375rem;
 
-  &:hover {
+  &:hover:enabled {
     background-color: var(--primary);
     color: var(--black);
     cursor: pointer;
+  }
+
+  &:disabled {
+    border: 0.0625rem solid var(--light-grey);
+    color: var(--light-grey);
+    cursor: not-allowed;
   }
 }
