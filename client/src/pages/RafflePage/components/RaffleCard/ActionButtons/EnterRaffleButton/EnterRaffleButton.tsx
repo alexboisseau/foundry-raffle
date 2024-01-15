@@ -4,7 +4,6 @@ import { useEnterRaffleButton } from "./useEnterRaffleButton";
 import { toast } from "react-hot-toast";
 import { IoTicketOutline } from "react-icons/io5";
 import ClipLoader from "react-spinners/ClipLoader";
-import "./EnterRaffleButton.scss";
 
 export const EnterRaffleButton = () => {
   const { buttonIsDisabled, thereIsPendingTx, onClick } = useEnterRaffleButton({
@@ -20,17 +19,20 @@ export const EnterRaffleButton = () => {
     <>
       <Button
         disabled={buttonIsDisabled}
-        icon={<IoTicketOutline size={20} />}
-        value="Enter Raffle"
+        icon={
+          thereIsPendingTx ? (
+            <ClipLoader size={16} />
+          ) : (
+            <IoTicketOutline size={20} />
+          )
+        }
+        value={thereIsPendingTx ? "Tx pending" : "Enter raffle"}
         onClick={onClick}
+        className="enter-raffle-button"
+        backgroundColor="#f8fafc"
+        hoverBackgroundColor="#e2e8f0"
+        color="#020617"
       />
-
-      {thereIsPendingTx && (
-        <div className="tx-pending">
-          <ClipLoader color={"$dark-primary"} size={16} />
-          <span>tx pending</span>
-        </div>
-      )}
     </>
   );
 };
