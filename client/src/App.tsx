@@ -22,7 +22,11 @@ export function App() {
           <RafflePage />
         </QueryClientProvider>
       </WagmiProvider>
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          className: "toast",
+        }}
+      />
     </div>
   );
 }

@@ -27,3 +27,9 @@ body {
     font-size: 1.125rem;
   }
 }
+
+.toast {
+  background-color: $dark-grey !important;
+  border: 2px $grey solid !important;
+  color: $primary !important;
+}
