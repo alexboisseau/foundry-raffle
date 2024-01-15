@@ -1,5 +1,7 @@
+@import "../../../../../styles/colors.scss";
+
 .action-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.325rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.625rem;
 }

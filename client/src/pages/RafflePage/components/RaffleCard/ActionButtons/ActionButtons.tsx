@@ -5,8 +5,8 @@ import "./ActionButtons.scss";
 export const ActionButtons = () => {
   return (
     <div className="action-buttons">
-      <AccountButton />
       <EnterRaffleButton />
+      <AccountButton />
     </div>
   );
 };
