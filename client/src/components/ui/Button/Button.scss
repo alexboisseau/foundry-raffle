@@ -1,23 +1,24 @@
 @import "../../../styles/colors.scss";
 
 .button {
-  background-color: unset;
-  border: 0.0625rem solid $primary;
+  background-color: $white;
+  color: $black;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: "Inter-SemiBold", sans-serif;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.625rem;
-  padding: 0.625rem 0.9375rem;
+  padding: 15px;
 
   &:hover:enabled {
-    background-color: $primary;
-    color: $black;
+    background-color: $light-grey;
     cursor: pointer;
   }
 
   &:disabled {
-    border: 0.0625rem solid $light-grey;
-    color: $light-grey;
     cursor: not-allowed;
   }
 }
