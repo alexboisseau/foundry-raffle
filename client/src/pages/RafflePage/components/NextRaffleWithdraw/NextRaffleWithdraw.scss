@@ -2,9 +2,7 @@
 @import "../../../../styles/colors.scss";
 
 .next-raffle-withdraw {
-  background-color: $primary;
-  border-radius: 0.3125rem;
-  color: $grey;
+  color: $white;
 
   display: flex;
   align-items: center;
@@ -13,25 +11,9 @@
 
   padding: 0.625rem 1.25rem;
 
-  h2 {
-    font-size: 1.25rem;
+  p {
+    font-size: 1.125rem;
     margin: 0;
-    font-family: "RobotoMono-Bold", "sans-serif";
-  }
-}
-
-@media screen and (max-width: $sm) {
-  .next-raffle-withdraw {
-    margin-bottom: 0;
-  }
-}
-
-@media screen and (max-width: $lg) {
-  .next-raffle-withdraw {
-    width: 70%;
-
-    h2 {
-      font-size: 1rem;
-    }
+    color: $light-grey;
   }
 }

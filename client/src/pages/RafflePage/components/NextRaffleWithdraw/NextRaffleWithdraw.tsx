@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNextRaffleWithdraw } from "./useNextRaffleWithdraw";
 import { formatMilliseconds } from "../../../../utils/format-milliseconds";
-import { IoIosHourglass } from "react-icons/io";
 import "./NextRaffleWithdraw.scss";
-import { useBreakpoints } from "../../../../hooks/useBreakpoints";
 
 export const NextRaffleWithdraw = () => {
   const { nextWithdraw } = useNextRaffleWithdraw();
-  const [formattedTimeUntilNextWithdraw, setFormattedTimeUntilNextWithdraw] =
-    useState("");
-  const { isSm } = useBreakpoints();
+  const [nextRaffleWithdraw, setNextRaffleWithdraw] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,16 +14,16 @@ export const NextRaffleWithdraw = () => {
 
       try {
         const formattedTime = formatMilliseconds(timeUntilNextWithdraw);
-        setFormattedTimeUntilNextWithdraw(formattedTime);
+        setNextRaffleWithdraw(`Next withdraw in ${formattedTime}`);
       } catch (error) {
         if (timeUntilNextWithdraw <= 0) {
-          setFormattedTimeUntilNextWithdraw(
-            "Interval is completed, calculation can take a few minutes",
+          setNextRaffleWithdraw(
+            "Calculation is in progress, a winner should be announced soon!",
           );
 
           return;
         } else {
-          setFormattedTimeUntilNextWithdraw("00:00:00");
+          setNextRaffleWithdraw(`Next withdraw in 00:00:00`);
         }
       }
     }, 1000);
@@ -37,8 +33,7 @@ export const NextRaffleWithdraw = () => {
 
   return (
     <div className="next-raffle-withdraw">
-      {isSm && <IoIosHourglass size={20} />}
-      <h2 className="">Next withdraw in : {formattedTimeUntilNextWithdraw}</h2>
+      <p>{nextRaffleWithdraw}</p>
     </div>
   );
 };
