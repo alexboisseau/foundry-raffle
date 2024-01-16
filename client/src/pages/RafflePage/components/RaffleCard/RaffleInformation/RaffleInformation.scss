@@ -3,10 +3,10 @@
 
 .raffle-information {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
-    "enter-fee players tickets"
-    "last-winner last-winner last-winner";
+    "enter-fee interval players tickets"
+    "last-winner last-winner last-winner last-winner";
   gap: 0.625rem;
 
   & > .raffle-information-card {
@@ -47,6 +47,10 @@
   & > .tickets {
     grid-area: tickets;
   }
+
+  & > .interval {
+    grid-area: interval;
+  }
 }
 
 @media screen and (max-width: $sm) {
@@ -54,6 +58,7 @@
     grid-template-columns: repeat(1, 1fr);
     grid-template-areas:
       "enter-fee"
+      "interval"
       "players"
       "tickets"
       "last-winner";
@@ -62,5 +67,16 @@
     & > .raffle-information-card {
       padding: 20px;
     }
+  }
+}
+
+@media screen and (min-width: calc($sm + 0.0625rem)) and (max-width: $lg) {
+  .raffle-information {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "enter-fee interval"
+      "players tickets"
+      "last-winner last-winner";
+    gap: 0.3125rem;
   }
 }

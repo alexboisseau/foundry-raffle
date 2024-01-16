@@ -4,6 +4,7 @@ import { useGetRaffleLastWinner } from "../../../../../hooks/useGetRaffleLastWin
 import { formatEther } from "viem";
 import { formatAddress } from "../../../../../utils/format-address";
 import { useGetRafflePlayers } from "../../../../../hooks/useGetRafflePlayers";
+import { useGetRaffleIntervalInSeconds } from "../../../../../hooks/useGetRaffleIntervalInSeconds";
 import { useBreakpoints } from "../../../../../hooks/useBreakpoints";
 import { CopyableAddress } from "../../../../../components/ui/CopyableAddress/CopyableAddress";
 import "./RaffleInformation.scss";
@@ -11,6 +12,7 @@ import "./RaffleInformation.scss";
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();
   const lastWinner = useGetRaffleLastWinner();
+  const interval = useGetRaffleIntervalInSeconds();
   const { players, userTickets } = useGetRafflePlayers();
   const { isSm } = useBreakpoints();
 
@@ -30,14 +32,19 @@ export const RaffleInformation = () => {
         value={players.length}
       />
       <RaffleInformationCard
-        gridAreaClassName="last-winner"
-        label="Last Winner"
-        value={<CopyableAddress address={formattedAddress} />}
+        gridAreaClassName="interval"
+        label="Interval (seconds)"
+        value={interval}
       />
       <RaffleInformationCard
         gridAreaClassName="tickets"
         label="Your tickets"
         value={userTickets}
+      />
+      <RaffleInformationCard
+        gridAreaClassName="last-winner"
+        label="Last Winner"
+        value={<CopyableAddress address={formattedAddress} />}
       />
     </div>
   );
