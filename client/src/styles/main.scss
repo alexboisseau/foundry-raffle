@@ -23,7 +23,8 @@ body {
 }
 
 .toast {
-  background-color: $dark-grey !important;
-  border: 2px $grey solid !important;
+  background-color: #15151598 !important;
+  border: 0.125rem solid #ffffff28 !important;
   color: $white !important;
+  width: fit-content !important;
 }

@@ -1,10 +1,11 @@
 import { IoCopy } from "react-icons/io5";
 import "./CopyableAddress.scss";
+import toast from "react-hot-toast";
 
 export const CopyableAddress = ({ address }: { address: string }) => {
   const handleClick = () => {
     navigator.clipboard.writeText(address).then(() => {
-      alert("Copied " + address + " to clipboard");
+      toast(`Address copied to clipboard`);
     });
   };
 
