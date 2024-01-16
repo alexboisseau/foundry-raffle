@@ -22,6 +22,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   );
   error Raffle_OnlyOwner();
   error Raffle_InvalidIntervalInSeconds();
+  error Raffle_InvalidEnterFee();
 
   event Raffle__EnteredRaffle(
     address indexed player,
@@ -36,6 +37,8 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
   uint16 private constant REQUEST_CONFIRMATIONS = 3;
   uint32 private constant NUM_WORDS = 1;
+  uint256 private constant MIN_ENTER_FEE = 0.01 ether;
+  uint32 private constant MIN_INTERVAL_IN_SECONDS = 300;
 
   VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
   bytes32 private immutable i_gasLane;
@@ -80,11 +83,19 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   function updateRaffleIntervalInSeconds(
     uint256 newRaffleIntervalInSeconds
   ) external onlyOwner {
-    if (newRaffleIntervalInSeconds < 1) {
+    if (newRaffleIntervalInSeconds < MIN_INTERVAL_IN_SECONDS) {
       revert Raffle_InvalidIntervalInSeconds();
     }
 
     s_raffleIntervalInSeconds = newRaffleIntervalInSeconds;
+  }
+
+  function updateEnterFee(uint256 newEnterFee) external onlyOwner {
+    if (newEnterFee < MIN_ENTER_FEE) {
+      revert Raffle_InvalidEnterFee();
+    }
+
+    s_enterFee = newEnterFee;
   }
 
   function enterRaffle() external payable {

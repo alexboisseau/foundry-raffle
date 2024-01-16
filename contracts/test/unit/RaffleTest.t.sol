@@ -93,21 +93,60 @@ contract RaffleTest is Test {
   // Raffle__UpdateRaffleIntervalInSeconds
   ///////////////////////
 
-  function testItShouldRevertWhenNotCalledByOwner() public prank(PLAYER) {
+  function testUpdateRaffleIntervalInSecondsRevertsWhenNotCalledByOwner()
+    public
+    prank(PLAYER)
+  {
     vm.expectRevert(Raffle.Raffle_OnlyOwner.selector);
     raffle.updateRaffleIntervalInSeconds(3600);
   }
 
-  function testItShouldRevertWhenIntervalIsLessThanOne() public prank(OWNER) {
+  function testUpdateRaffleIntervalInSecondsRevertsWhenIntervalIsLessThanOne()
+    public
+    prank(OWNER)
+  {
     vm.expectRevert(Raffle.Raffle_InvalidIntervalInSeconds.selector);
     raffle.updateRaffleIntervalInSeconds(0);
   }
 
-  function testItShouldUpdateRaffleIntervalInSeconds() public prank(OWNER) {
+  function testUpdateRaffleIntervalInSecondsUpdatesRaffleIntervalInSeconds()
+    public
+    prank(OWNER)
+  {
     uint256 newInterval = raffle.getRaffleIntervalInSeconds() + 3600;
     raffle.updateRaffleIntervalInSeconds(newInterval);
 
     assert(raffle.getRaffleIntervalInSeconds() == newInterval);
+  }
+
+  ///////////////////////
+  // Raffle__UpdateRaffleEnterFee
+  ///////////////////////
+
+  function testUpdateEnterFeeRevertsWhenNotCalledByOwner()
+    public
+    prank(PLAYER)
+  {
+    vm.expectRevert(Raffle.Raffle_OnlyOwner.selector);
+    raffle.updateEnterFee(0.02 ether);
+  }
+
+  function testUpdateEnterFeeRevertsWhenIntervalIsLessThanTheMinimum()
+    public
+    prank(OWNER)
+  {
+    vm.expectRevert(Raffle.Raffle_InvalidEnterFee.selector);
+    raffle.updateEnterFee(0);
+  }
+
+  function testUpdateEnterFeeUpdatesRaffleIntervalInSeconds()
+    public
+    prank(OWNER)
+  {
+    uint256 newEnterFee = raffle.getEnterFee() + 0.01 ether;
+    raffle.updateEnterFee(newEnterFee);
+
+    assert(raffle.getEnterFee() == newEnterFee);
   }
 
   ///////////////////////
