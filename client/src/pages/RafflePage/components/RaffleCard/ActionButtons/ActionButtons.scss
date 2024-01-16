@@ -1,7 +1,14 @@
 @import "../../../../../styles/colors.scss";
+@import "../../../../../styles/breakpoints.scss";
 
 .action-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.625rem;
+}
+
+@media screen and (max-width: $sm) {
+  .action-buttons {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
