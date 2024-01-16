@@ -1,0 +1,11 @@
+.copyable-address {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+
+  & > svg:hover {
+    cursor: pointer;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
