@@ -20,6 +20,8 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     uint256 playersNumber,
     uint256 raffleState
   );
+  error Raffle_OnlyOwner();
+  error Raffle_InvalidIntervalInSeconds();
 
   event Raffle__EnteredRaffle(
     address indexed player,
@@ -35,17 +37,25 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   uint16 private constant REQUEST_CONFIRMATIONS = 3;
   uint32 private constant NUM_WORDS = 1;
 
-  uint256 private immutable i_enterFee;
-  uint256 private immutable i_raffleIntervalInSeconds;
   VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
   bytes32 private immutable i_gasLane;
   uint64 private immutable i_subscriptionId;
   uint32 private immutable i_callbackGasLimit;
+  address private immutable i_owner;
 
   address payable[] private s_players;
   uint256 private s_lastRaffleTimestamp;
   address payable private s_lastWinner;
   RaffleState private s_raffleState;
+  uint256 private s_enterFee;
+  uint256 private s_raffleIntervalInSeconds;
+
+  modifier onlyOwner() {
+    if (msg.sender != i_owner) {
+      revert Raffle_OnlyOwner();
+    }
+    _;
+  }
 
   constructor(
     uint256 enterFee,
@@ -55,19 +65,30 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     uint64 subscriptionId,
     uint32 callbackGasLimit
   ) VRFConsumerBaseV2(vrfCoordinator) {
-    i_enterFee = enterFee;
-    i_raffleIntervalInSeconds = raffleIntervalInSeconds;
+    s_enterFee = enterFee;
+    s_raffleIntervalInSeconds = raffleIntervalInSeconds;
     i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinator);
     i_gasLane = gasLane;
     i_subscriptionId = subscriptionId;
     i_callbackGasLimit = callbackGasLimit;
+    i_owner = msg.sender;
 
     s_lastRaffleTimestamp = block.timestamp;
     s_raffleState = RaffleState.OPEN;
   }
 
+  function updateRaffleIntervalInSeconds(
+    uint256 newRaffleIntervalInSeconds
+  ) external onlyOwner {
+    if (newRaffleIntervalInSeconds < 1) {
+      revert Raffle_InvalidIntervalInSeconds();
+    }
+
+    s_raffleIntervalInSeconds = newRaffleIntervalInSeconds;
+  }
+
   function enterRaffle() external payable {
-    if (msg.value < i_enterFee) {
+    if (msg.value < s_enterFee) {
       revert Raffle__NotEnoughEthSent();
     }
 
@@ -112,7 +133,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   {
     bool raffleIsOpen = s_raffleState == RaffleState.OPEN;
     bool enoughTimePassed = block.timestamp >
-      s_lastRaffleTimestamp + i_raffleIntervalInSeconds;
+      s_lastRaffleTimestamp + s_raffleIntervalInSeconds;
 
     upkeepNeeded = enoughTimePassed && raffleIsOpen;
   }
@@ -172,10 +193,10 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   }
 
   function getEnterFee() external view returns (uint256) {
-    return i_enterFee;
+    return s_enterFee;
   }
 
   function getRaffleIntervalInSeconds() external view returns (uint256) {
-    return i_raffleIntervalInSeconds;
+    return s_raffleIntervalInSeconds;
   }
 }

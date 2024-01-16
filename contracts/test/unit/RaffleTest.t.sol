@@ -19,6 +19,7 @@ contract RaffleTest is Test {
 
   uint256 public constant STARTING_PLAYER_BALANCE = 100 ether;
   address public immutable PLAYER = makeAddr("PLAYER");
+  address public immutable OWNER = DEFAULT_SENDER;
   uint256 public enterFee;
   uint256 public raffleIntervalInSeconds;
   address public vrfCoordinatorV2;
@@ -60,6 +61,12 @@ contract RaffleTest is Test {
     _;
   }
 
+  modifier prank(address from) {
+    vm.startPrank(from);
+    _;
+    vm.stopPrank();
+  }
+
   function setUp() external {
     DeployRaffle deployRaffle = new DeployRaffle();
     (raffle, helperConfig) = deployRaffle.run();
@@ -80,6 +87,27 @@ contract RaffleTest is Test {
 
   function testRaffleInitializesInOpenState() public view {
     assert(raffle.getRaffleState() == Raffle.RaffleState.OPEN);
+  }
+
+  ///////////////////////
+  // Raffle__UpdateRaffleIntervalInSeconds
+  ///////////////////////
+
+  function testItShouldRevertWhenNotCalledByOwner() public prank(PLAYER) {
+    vm.expectRevert(Raffle.Raffle_OnlyOwner.selector);
+    raffle.updateRaffleIntervalInSeconds(3600);
+  }
+
+  function testItShouldRevertWhenIntervalIsLessThanOne() public prank(OWNER) {
+    vm.expectRevert(Raffle.Raffle_InvalidIntervalInSeconds.selector);
+    raffle.updateRaffleIntervalInSeconds(0);
+  }
+
+  function testItShouldUpdateRaffleIntervalInSeconds() public prank(OWNER) {
+    uint256 newInterval = raffle.getRaffleIntervalInSeconds() + 3600;
+    raffle.updateRaffleIntervalInSeconds(newInterval);
+
+    assert(raffle.getRaffleIntervalInSeconds() == newInterval);
   }
 
   ///////////////////////
