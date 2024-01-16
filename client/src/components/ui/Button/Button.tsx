@@ -1,6 +1,18 @@
 import { useState } from "react";
 import "./Button.scss";
 
+type ButtonProps = {
+  backgroundColor?: string;
+  hoverBackgroundColor?: string;
+  color?: string;
+  hoverColor?: string;
+  className?: string;
+  disabled?: boolean;
+  icon?: JSX.Element;
+  value: string;
+  onClick: () => void;
+};
+
 export const Button = ({
   backgroundColor,
   hoverBackgroundColor,
@@ -11,17 +23,7 @@ export const Button = ({
   icon,
   value,
   onClick,
-}: {
-  backgroundColor?: string;
-  hoverBackgroundColor?: string;
-  color?: string;
-  hoverColor?: string;
-  className?: string;
-  disabled?: boolean;
-  icon?: JSX.Element;
-  value: string;
-  onClick: () => void;
-}) => {
+}: ButtonProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const handleMouseEnter = () => {
