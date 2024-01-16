@@ -1,5 +1,5 @@
 /** COMPONENTS */
-import { RaffleInformationLine } from "./RaffleInformationLine";
+import { RaffleInformationCard } from "./RaffleInformationCard";
 
 /** HOOKS */
 import { useGetRaffleEnterFee } from "../../../../../hooks/useGetRaffleEnterFee";
@@ -25,13 +25,13 @@ export const RaffleInformation = () => {
 
   return (
     <div className="raffle-information">
-      <RaffleInformationLine
+      <RaffleInformationCard
         label="Enter Fee (ETH)"
         value={formattedEnterFee}
       />
-      <RaffleInformationLine label="Players" value={players.length} />
-      <RaffleInformationLine label="Last Winner" value={formattedAddress} />
-      <RaffleInformationLine label="Your tickets" value={userTickets} />
+      <RaffleInformationCard label="Players" value={players.length} />
+      <RaffleInformationCard label="Last Winner" value={formattedAddress} />
+      <RaffleInformationCard label="Your tickets" value={userTickets} />
     </div>
   );
 };
