@@ -1,0 +1,6 @@
+README.md
+Makefile
+foundry.toml
+.env.example
+contracts/
+.github/
