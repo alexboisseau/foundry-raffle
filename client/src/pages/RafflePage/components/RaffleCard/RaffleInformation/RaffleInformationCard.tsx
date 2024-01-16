@@ -10,7 +10,7 @@ export const RaffleInformationCard = ({
   return (
     <div className={`raffle-information-card ${gridAreaClassName}`}>
       <p className="label">{label}</p>
-      <p className="value">{value}</p>
+      <div className="value">{value}</div>
     </div>
   );
 };

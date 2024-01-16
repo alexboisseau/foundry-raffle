@@ -15,6 +15,7 @@ import { formatEther } from "viem";
 import { formatAddress } from "../../../../../utils/format-address";
 import { useGetRafflePlayers } from "../../../../../hooks/useGetRafflePlayers";
 import { useBreakpoints } from "../../../../../hooks/useBreakpoints";
+import { CopyableAddress } from "../../../../../components/ui/CopyableAddress/CopyableAddress";
 
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();
@@ -40,7 +41,7 @@ export const RaffleInformation = () => {
       <RaffleInformationCard
         gridAreaClassName="last-winner"
         label="Last Winner"
-        value={formattedAddress}
+        value={<CopyableAddress address={formattedAddress} />}
       />
       <RaffleInformationCard
         gridAreaClassName="tickets"
