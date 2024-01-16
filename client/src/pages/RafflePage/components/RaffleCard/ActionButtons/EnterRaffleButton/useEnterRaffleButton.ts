@@ -1,12 +1,14 @@
 import { useEnterRaffle } from "../../../../../../hooks/useEnterRaffle";
 
+type EnterRaffleButtonProps = {
+  onSuccess: () => void;
+  onError: () => void;
+};
+
 export const useEnterRaffleButton = ({
   onSuccess,
   onError,
-}: {
-  onSuccess: () => void;
-  onError: () => void;
-}) => {
+}: EnterRaffleButtonProps) => {
   const { enterRaffleStatus, enterRaffleTxStatus, txHash, enterRaffle } =
     useEnterRaffle({
       onSuccess,
