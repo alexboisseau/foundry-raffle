@@ -4,7 +4,7 @@ import { SupportedChainId } from "../types/supported-chain-id";
 
 const raffleAddresses: { [key: SupportedChainId]: Address } = {
   [foundry.id]: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-  [sepolia.id]: "0x754c70741584520B4Df7de6d7C3Eb6311b921164",
+  [sepolia.id]: "0x5bCc74831871eA4d7cD504B987dE7d7b677A2df1",
 };
 
 const raffleAbi = [
@@ -185,6 +185,32 @@ const raffleAbi = [
     stateMutability: "nonpayable",
   },
   {
+    type: "function",
+    name: "updateEnterFee",
+    inputs: [
+      {
+        name: "newEnterFee",
+        type: "uint256",
+        internalType: "uint256",
+      },
+    ],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "updateRaffleIntervalInSeconds",
+    inputs: [
+      {
+        name: "newRaffleIntervalInSeconds",
+        type: "uint256",
+        internalType: "uint256",
+      },
+    ],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
     type: "event",
     name: "Raffle__EnteredRaffle",
     inputs: [
@@ -237,6 +263,21 @@ const raffleAbi = [
         internalType: "address",
       },
     ],
+  },
+  {
+    type: "error",
+    name: "Raffle_InvalidEnterFee",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "Raffle_InvalidIntervalInSeconds",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "Raffle_OnlyOwner",
+    inputs: [],
   },
   {
     type: "error",
