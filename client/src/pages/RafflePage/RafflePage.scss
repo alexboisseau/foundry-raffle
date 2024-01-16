@@ -3,7 +3,7 @@
 
 .raffle-page {
   height: 100vh;
-  padding: 0 20px;
+  padding: 20px;
 
   display: flex;
   flex-direction: column;
@@ -26,6 +26,7 @@
 
 @media screen and (max-width: $sm) {
   .raffle-page {
+    height: fit-content;
     gap: 10px;
 
     h1 {
