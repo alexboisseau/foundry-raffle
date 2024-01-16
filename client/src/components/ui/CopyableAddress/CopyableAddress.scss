@@ -3,6 +3,10 @@
   align-items: center;
   gap: 0.625rem;
 
+  & > p {
+    margin: 0;
+  }
+
   & > svg:hover {
     cursor: pointer;
     width: 1.125rem;
