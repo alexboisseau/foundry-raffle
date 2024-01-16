@@ -1,4 +1,6 @@
-# Provably Random Raffle Contract
+# Decentralized Raffle
+
+🌐 Client App : https://foundry-raffle.vercel.app/
 
 ## About
 
