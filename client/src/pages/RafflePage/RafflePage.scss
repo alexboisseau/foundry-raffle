@@ -1,8 +1,8 @@
 @import "../../styles/breakpoints.scss";
+@import "../../styles/colors.scss";
 
 .raffle-page {
   height: 100vh;
-  padding: 0 0.625rem;
 
   display: flex;
   flex-direction: column;
@@ -10,38 +10,25 @@
   justify-content: center;
   gap: 1.25rem;
 
+  position: relative;
+
   h1 {
-    font-size: 5rem;
-    font-family: "RobotoMono-Bold", "sans-serif";
-    text-transform: uppercase;
+    font-family: "Inter-SemiBold", "sans-serif";
     text-align: center;
-    margin: 0 0 2.5rem 0; // bottom
+    margin: 0;
+    font-size: 60px;
+    background: linear-gradient(to right, $white 0%, $white 50%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
 @media screen and (max-width: $sm) {
   .raffle-page {
-    h1 {
-      margin-bottom: 0;
-      font-size: 1.375rem;
-    }
-  }
-}
+    gap: 10px;
 
-@media screen and (min-width: calc($sm + 1px)) and (max-width: $lg) {
-  .raffle-page {
     h1 {
-      margin-bottom: 1.25rem;
-      font-size: 2.5rem;
-    }
-  }
-}
-
-@media screen and (min-width: calc($lg + 1px)) and (max-width: $xl) {
-  .raffle-page {
-    h1 {
-      margin-bottom: 1.875rem;
-      font-size: 3.75rem;
+      font-size: 30px;
     }
   }
 }

@@ -1,13 +1,15 @@
 import { SupportedNetworks } from "../../components/shared/SupportedNetworks/SupportedNetworks";
 import { NextRaffleWithdraw } from "./components/NextRaffleWithdraw/NextRaffleWithdraw";
 import { RaffleCard } from "./components/RaffleCard/RaffleCard";
-import "./RafflePage.scss";
 import { WatchPickedWinner } from "./components/WatchPickedWinner/WatchPickedWinner";
+import { BackgroundPageGrid } from "./components/BackgroundPageGrid/BackgroundPageGrid";
+import "./RafflePage.scss";
 
 export const RafflePage = () => {
   return (
     <main className="raffle-page">
-      <h1>$_Decentralized_Raffle_$</h1>
+      <BackgroundPageGrid />
+      <h1>Decentralized Raffle</h1>
       <SupportedNetworks>
         <>
           <WatchPickedWinner />
