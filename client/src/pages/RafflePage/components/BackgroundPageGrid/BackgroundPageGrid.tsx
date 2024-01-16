@@ -1,5 +1,5 @@
 import "./BackgroundPageGrid.scss";
 
-export const BackgroundPageGrid = () => {
-  return <div className="background-page-grid"></div>;
-};
+export const BackgroundPageGrid = () => (
+  <div className="background-page-grid"></div>
+);
