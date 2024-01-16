@@ -5,18 +5,16 @@ import { WatchPickedWinner } from "./components/WatchPickedWinner/WatchPickedWin
 import { BackgroundPageGrid } from "./components/BackgroundPageGrid/BackgroundPageGrid";
 import "./RafflePage.scss";
 
-export const RafflePage = () => {
-  return (
-    <main className="raffle-page">
-      <BackgroundPageGrid />
-      <h1>Decentralized Raffle</h1>
-      <SupportedNetworks>
-        <>
-          <WatchPickedWinner />
-          <NextRaffleWithdraw />
-          <RaffleCard />
-        </>
-      </SupportedNetworks>
-    </main>
-  );
-};
+export const RafflePage = () => (
+  <main className="raffle-page">
+    <BackgroundPageGrid />
+    <h1>Decentralized Raffle</h1>
+    <SupportedNetworks>
+      <>
+        <WatchPickedWinner />
+        <NextRaffleWithdraw />
+        <RaffleCard />
+      </>
+    </SupportedNetworks>
+  </main>
+);
