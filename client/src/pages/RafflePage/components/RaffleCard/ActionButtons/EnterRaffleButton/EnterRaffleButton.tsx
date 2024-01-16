@@ -1,4 +1,3 @@
-/** HOOKS */
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { useEnterRaffleButton } from "./useEnterRaffleButton";
 import { toast } from "react-hot-toast";
