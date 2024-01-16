@@ -1,21 +1,12 @@
-/** COMPONENTS */
 import { RaffleInformationCard } from "./RaffleInformationCard";
-
-/** HOOKS */
 import { useGetRaffleEnterFee } from "../../../../../hooks/useGetRaffleEnterFee";
 import { useGetRaffleLastWinner } from "../../../../../hooks/useGetRaffleLastWinner";
-
-/** STYLES */
-import "./RaffleInformation.scss";
-
-/** VIEM */
 import { formatEther } from "viem";
-
-/** UTILS */
 import { formatAddress } from "../../../../../utils/format-address";
 import { useGetRafflePlayers } from "../../../../../hooks/useGetRafflePlayers";
 import { useBreakpoints } from "../../../../../hooks/useBreakpoints";
 import { CopyableAddress } from "../../../../../components/ui/CopyableAddress/CopyableAddress";
+import "./RaffleInformation.scss";
 
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();
