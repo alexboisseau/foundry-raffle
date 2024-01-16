@@ -3,7 +3,10 @@
 
 .raffle-information {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "enter-fee players tickets"
+    "last-winner last-winner last-winner";
   gap: 0.625rem;
 
   & > .raffle-information-card {
@@ -25,13 +28,35 @@
 
     & > .value {
       font-family: "Inter-SemiBold", sans-serif;
+      font-size: 20px;
     }
+  }
+
+  & > .enter-fee {
+    grid-area: enter-fee;
+  }
+
+  & > .players {
+    grid-area: players;
+  }
+
+  & > .last-winner {
+    grid-area: last-winner;
+  }
+
+  & > .tickets {
+    grid-area: tickets;
   }
 }
 
 @media screen and (max-width: $sm) {
   .raffle-information {
     grid-template-columns: repeat(1, 1fr);
+    grid-template-areas:
+      "enter-fee"
+      "players"
+      "tickets"
+      "last-winner";
     gap: 0.3125rem;
 
     & > .raffle-information-card {
