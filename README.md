@@ -16,14 +16,21 @@ This project stands in the context of [Cyfrin Updraft](https://updraft.cyfrin.io
 
 ## How it works?
 
-The whole logic of the raffle resides in the `Raffle` smart contract :
+1. Raffle Contract 🎟️  
+   The whole logic resides in this smart contract. These are the basic rules :
 
-- To enter in the raffle, you must sent a minimum value (`enterFee`) and the lottery must be `OPEN`. Once, the player address is store in an array with other players.
-- A withdraw happens all the `x` seconds if players array isn't empty. This conditions are verified by the [Chainlink Automation](https://docs.chain.link/chainlink-automation) service which will check them for each block. When these conditions are ok, the contract calls the [Chainlink VRF](https://docs.chain.link/vrf) service which will provide us a random value.
-- Then, the random value is used to pick a winner in the array of the players. Next, value of the contract is sent to the winner and players array is cleaned.
-- The owner can update the raffle interval (`x`) and the `enterFee`
+   - The raffle has an `intervalInSeconds`, an `enterFee`, a `state` (OPEN or CALCULATING), an array of `players` address, the `lastWinner` and the `lastWithdrawTimestamp`.
+   - A player can buy a ticket if the raffle is OPEN and if the value sent through the tx is greater than the `enterFee`.
+   - Owner of the contract can update the `intervalInSeconds` and the `enterFee` properties.
 
-Thanks to the web application, users can connect their wallet (eg: Metamask) and then interact with the smart contract easier.
+2. ChainLink Automation 🤖  
+   Thanks to this service, oracle network looks if a withdraw is needed for each new block. This is possible since our contract implement the `AutomationCompatibleInterface` from `@chainlink`. For each block, the method `checkUpkeep` is called. If this method returns true, then a node call the `performUpkeep` method. It's at this moment that we're going to request a VRF.
+
+3. ChainLink VRF (Verifiable Random Function) 🎲
+   Thanks to this service, we can request a random value. This is possible since our contract implement the `VRFConsumerBaseV2` from `@chainlink`. We received the number through the method `fulfillRandomWords`. At this point, we'll select a winner, send him or her the raffle value and clear the players array.
+
+4. Web Application 🌐  
+   Through web application, users can connect their wallet (eg: Metamask) and then interact with the smart contract easier to buy a ticket and read some information like the players number, the last winner, etc...
 
 ## What I've learned?
 
@@ -37,12 +44,13 @@ Thanks to the web application, users can connect their wallet (eg: Metamask) and
      - `storage`: data which persist during the time inside the contract
      - `memory` and `calldata` must be specified for specific types like `array` or `map` passed though function. Other types (eg: uint, int) are memory by default
    - How to create functions and how to declare their visibilities.
-2. Use Foundry framework
+2. Use [Foundry](https://book.getfoundry.sh/) framework
    - Install and use libs
    - Write tests
    - Write scripts
    - Use `forge` tool to run tests and scripts / deployed contract / verified contract
-3. Chainlink VRF and Automation
+   - Use `anvil` to run a local blockchain
+3. ChainLink VRF and Automation
    - Configure the Automation, providing :
      - type of automation (`custom` in our case)
      - address of the contract
@@ -51,3 +59,6 @@ Thanks to the web application, users can connect their wallet (eg: Metamask) and
      - consumers (automatic in our case thanks to a script run during the deployment)
      - the balance
 4. Use [Wagmi](https://wagmi.sh/) library for the development of the web application
+   - Set up the configuration with `chains`, `providers` and `connectors`
+   - Use different hooks to read / write from an abi contract
+   - Interact with the user wallet
