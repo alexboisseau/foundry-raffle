@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@radix-ui/themes": "^2.0.3",
     "@tanstack/react-query": "^5.17.10",
     "buffer": "^6.0.3",
     "process": "^0.11.10",
