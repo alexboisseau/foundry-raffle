@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { Button } from "../../../../../../components/ui/Button/Button";
 import { AccountModal } from "./AccountModal/AccountModal";
 import { IoMdWallet } from "react-icons/io";
+
+import { Button } from "@radix-ui/themes";
 
 export const AccountButton = () => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
     <>
-      <Button
-        icon={<IoMdWallet size={20} />}
-        onClick={() => setOpenModal(true)}
-        value="Open account modal"
-        className="account-button"
-        backgroundColor="#1e293b"
-        hoverBackgroundColor="#18212f"
-        color="#fff"
-      />
+      <Button variant="surface" onClick={() => setOpenModal(true)}>
+        <IoMdWallet />
+        Open account modal
+      </Button>
       {openModal && <AccountModal onClose={() => setOpenModal(false)} />}
     </>
   );

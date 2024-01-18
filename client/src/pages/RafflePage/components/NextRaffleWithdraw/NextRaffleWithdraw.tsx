@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNextRaffleWithdraw } from "./useNextRaffleWithdraw";
 import { formatMilliseconds } from "../../../../utils/format-milliseconds";
+import { Box, Text } from "@radix-ui/themes";
 import "./NextRaffleWithdraw.scss";
 
 export const NextRaffleWithdraw = () => {
@@ -32,8 +33,8 @@ export const NextRaffleWithdraw = () => {
   }, [nextWithdraw]);
 
   return (
-    <div className="next-raffle-withdraw">
-      <p>{nextRaffleWithdraw}</p>
-    </div>
+    <Box className="next-raffle-withdraw">
+      <Text>{nextRaffleWithdraw}</Text>
+    </Box>
   );
 };
