@@ -1,10 +1,11 @@
-import { AccountButton } from "./AccountButton/AccountButton";
+import { AccountModal } from "./AccountButton/AccountButton";
 import { EnterRaffleButton } from "./EnterRaffleButton/EnterRaffleButton";
+import { Box } from "@radix-ui/themes";
 import "./ActionButtons.scss";
 
 export const ActionButtons = () => (
-  <div className="action-buttons">
+  <Box className="action-buttons">
     <EnterRaffleButton />
-    <AccountButton />
-  </div>
+    <AccountModal />
+  </Box>
 );

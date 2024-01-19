@@ -1,9 +1,9 @@
-import React from "react";
 import { useAccount } from "wagmi";
 import { SUPPORTED_CHAINS_IDS } from "../../../constants/supported-chains";
-import { ConnectWalletButton } from "./ConnectWalletButton/ConnectWalletButton";
-import { SwitchNetworkButton } from "./SwitchNetworkButton/SwitchNetworkButton";
-import "./SupportedNetworks.scss";
+import { Flex, Text } from "@radix-ui/themes";
+import { ConnectWalletModal } from "./ConnectWalletButton/ConnectWalletButton";
+import { SwitchNetworkModal } from "./SwitchNetworkButton/SwitchNetworkModal";
+
 export const SupportedNetworks = ({ children }: { children: JSX.Element }) => {
   const { chain, isConnected } = useAccount();
 
@@ -12,12 +12,12 @@ export const SupportedNetworks = ({ children }: { children: JSX.Element }) => {
 
   return (
     <>
-      {!isConnected && <ConnectWalletButton />}
+      {!isConnected && <ConnectWalletModal />}
       {isConnected && !currentNetworkIsSupported && (
-        <div className="unsupported-network">
-          <p>Unsupported Network</p>
-          <SwitchNetworkButton />
-        </div>
+        <Flex className="unsupported-network" direction="column" gap="3">
+          <Text>Unsupported Network</Text>
+          <SwitchNetworkModal />
+        </Flex>
       )}
       {isConnected &&
         chain &&

@@ -13,7 +13,7 @@ export const EnterRaffleButton = () => {
   });
 
   return (
-    <Button disabled={buttonIsDisabled} onClick={onClick}>
+    <Button disabled={buttonIsDisabled} onClick={onClick} size="3">
       {thereIsPendingTx ? "Tx pending" : "Enter raffle"}
     </Button>
   );

@@ -1,24 +1,24 @@
 @import "../../styles/breakpoints.scss";
-@import "../../styles/colors.scss";
+
+@import "@radix-ui/colors/iris.css";
+@import "@radix-ui/colors/iris-dark.css";
 
 .raffle-page {
-  height: 100vh;
-  padding: 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-
+  min-height: 100vh;
+  gap: var(--space-4);
   position: relative;
 
   h1 {
+    font-size: var(--font-size-9);
+    line-height: var(--line-height-9);
     font-family: "Inter-SemiBold", "sans-serif";
-    text-align: center;
     margin: 0;
-    font-size: 60px;
-    background: linear-gradient(to right, $white 0%, $white 50%, #94a3b8 100%);
+    background: linear-gradient(
+      to right,
+      var(--iris-12) 0%,
+      var(--iris-12) 50%,
+      var(--iris-11) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -26,11 +26,11 @@
 
 @media screen and (max-width: $sm) {
   .raffle-page {
-    height: fit-content;
-    gap: 10px;
+    gap: var(--space-1);
 
     h1 {
-      font-size: 30px;
+      font-size: var(--font-size-7);
+      line-height: var(--line-height-8);
     }
   }
 }

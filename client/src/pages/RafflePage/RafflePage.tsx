@@ -3,12 +3,19 @@ import { NextRaffleWithdraw } from "./components/NextRaffleWithdraw/NextRaffleWi
 import { RaffleCard } from "./components/RaffleCard/RaffleCard";
 import { WatchPickedWinner } from "./components/WatchPickedWinner/WatchPickedWinner";
 import { BackgroundPageGrid } from "./components/BackgroundPageGrid/BackgroundPageGrid";
+import { Flex, Heading } from "@radix-ui/themes";
 import "./RafflePage.scss";
 
 export const RafflePage = () => (
-  <main className="raffle-page">
+  <Flex
+    className="raffle-page"
+    direction="column"
+    align="center"
+    justify="center"
+    p="4"
+  >
     <BackgroundPageGrid />
-    <h1>Decentralized Raffle</h1>
+    <Heading>Decentralized Raffle</Heading>
     <SupportedNetworks>
       <>
         <WatchPickedWinner />
@@ -16,5 +23,5 @@ export const RafflePage = () => (
         <RaffleCard />
       </>
     </SupportedNetworks>
-  </main>
+  </Flex>
 );

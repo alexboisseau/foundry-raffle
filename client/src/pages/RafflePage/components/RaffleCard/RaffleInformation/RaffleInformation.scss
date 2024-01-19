@@ -1,5 +1,6 @@
 @import "../../../../../styles/breakpoints.scss";
-@import "../../../../../styles/colors.scss";
+
+@import "@radix-ui/colors/iris.css";
 
 .raffle-information {
   display: grid;
@@ -7,28 +8,14 @@
   grid-template-areas:
     "enter-fee interval players tickets"
     "last-winner last-winner last-winner last-winner";
-  gap: 0.625rem;
+  gap: var(--space-3);
 
   & > .raffle-information-card {
-    padding: 2.5rem 3.125rem;
+    background-color: var(--iris-2);
+    padding: var(--space-4) var(--space-5);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3125rem;
-
-    background-color: #15151598;
-    border: 0.125rem solid #ffffff28;
-    border-radius: 0.3125rem;
-
-    & > p {
-      margin: 0;
-    }
-
-    & > .value {
-      font-family: "Inter-SemiBold", sans-serif;
-      font-size: 20px;
+    .value {
+      font-size: var(--font-size-5);
     }
   }
 
@@ -62,10 +49,11 @@
       "players"
       "tickets"
       "last-winner";
-    gap: 0.3125rem;
 
-    & > .raffle-information-card {
-      padding: 20px;
+    .raffle-information-card {
+      .value {
+        font-size: var(--font-size-3);
+      }
     }
   }
 }
@@ -77,6 +65,21 @@
       "enter-fee interval"
       "players tickets"
       "last-winner last-winner";
-    gap: 0.3125rem;
+
+    & > .raffle-information-card {
+      padding: var(--space-2) var(--space-3);
+
+      .value {
+        font-size: var(--font-size-4);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .raffle-information {
+    & > .raffle-information-card {
+      padding: var(--space-1) var(--space-2);
+    }
   }
 }

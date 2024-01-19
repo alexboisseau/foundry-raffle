@@ -1,10 +1,10 @@
 import { RaffleInformation } from "./RaffleInformation/RaffleInformation";
 import { ActionButtons } from "./ActionButtons/ActionButtons";
-import "./RaffleCard.scss";
+import { Flex } from "@radix-ui/themes";
 
 export const RaffleCard = () => (
-  <div className="raffle-card">
+  <Flex className="raffle-card" direction="column" gap="3">
     <RaffleInformation />
     <ActionButtons />
-  </div>
+  </Flex>
 );

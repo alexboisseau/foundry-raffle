@@ -1,19 +1,15 @@
 @import "../../../../styles/breakpoints.scss";
-@import "../../../../styles/colors.scss";
 
 .next-raffle-withdraw {
-  color: $white;
+  & > span {
+    font-size: var(--font-size-5);
+  }
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.625rem;
-
-  padding: 0.625rem 1.25rem;
-
-  p {
-    font-size: 1.125rem;
-    margin: 0;
-    color: $light-grey;
+@media screen and (max-width: $sm) {
+  .next-raffle-withdraw {
+    & > span {
+      font-size: var(--font-size-3);
+    }
   }
 }

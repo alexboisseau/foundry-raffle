@@ -9,6 +9,8 @@ import { useBreakpoints } from "../../../../../hooks/useBreakpoints";
 import { CopyableAddress } from "../../../../../components/ui/CopyableAddress/CopyableAddress";
 import "./RaffleInformation.scss";
 
+import { Box } from "@radix-ui/themes";
+
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();
   const lastWinner = useGetRaffleLastWinner();
@@ -20,7 +22,7 @@ export const RaffleInformation = () => {
   const formattedAddress = isSm ? lastWinner : formatAddress(lastWinner);
 
   return (
-    <div className="raffle-information">
+    <Box className="raffle-information">
       <RaffleInformationCard
         gridAreaClassName="enter-fee"
         label="Enter Fee (ETH)"
@@ -46,6 +48,6 @@ export const RaffleInformation = () => {
         label="Last Winner"
         value={<CopyableAddress address={formattedAddress} />}
       />
-    </div>
+    </Box>
   );
 };
