@@ -1,4 +1,12 @@
-import { Badge, Box, Button, Dialog, Flex, Text } from "@radix-ui/themes";
+import {
+  Badge,
+  Box,
+  Button,
+  Dialog,
+  Flex,
+  Strong,
+  Text,
+} from "@radix-ui/themes";
 import { useAccount, useSwitchChain } from "wagmi";
 
 export const SwitchNetworkModal = () => {
@@ -15,7 +23,9 @@ export const SwitchNetworkModal = () => {
 
       <Dialog.Content style={{ maxWidth: 450 }}>
         <Flex justify={"between"} mb="5">
-          <Badge>{chain?.name}</Badge>
+          <Badge>
+            Connected to <Strong>{chain?.name}</Strong> network
+          </Badge>
           <Dialog.Close>
             <Button variant="soft">X</Button>
           </Dialog.Close>
