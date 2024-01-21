@@ -26,16 +26,18 @@ export const SwitchNetworkModal = () => {
             Choose between available networks
           </Text>
           <Flex gap="2">
-            {chains.map((chain) => (
-              <Button
-                key={chain.id}
-                onClick={() => switchChain({ chainId: chain.id })}
-                variant="solid"
-                size="3"
-              >
-                {chain.name}
-              </Button>
-            ))}
+            {chains
+              .filter((c) => c.id !== chain?.id)
+              .map((chain) => (
+                <Button
+                  key={chain.id}
+                  onClick={() => switchChain({ chainId: chain.id })}
+                  variant="solid"
+                  size="3"
+                >
+                  {chain.name}
+                </Button>
+              ))}
           </Flex>
         </Box>
       </Dialog.Content>
