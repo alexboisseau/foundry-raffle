@@ -1,8 +1,66 @@
-import { Box, Button, Dialog, Flex, Strong, Text } from "@radix-ui/themes";
+import {
+  Box,
+  Button,
+  Dialog,
+  Flex,
+  Link,
+  Separator,
+  Strong,
+  Text,
+} from "@radix-ui/themes";
 import { useConnect } from "wagmi";
+import { connectorsDownloadLinks } from "../../../../constants/connectors-download-links";
+
+const ConnectorsDetected = () => {
+  const { connectors, connect } = useConnect();
+
+  return (
+    <>
+      <Text as="p" mb="2">
+        Choose between available connectors
+      </Text>
+      <Flex gap="3">
+        {connectors.map((connector) => (
+          <Button
+            onClick={() => connect({ connector })}
+            key={connector.id}
+            size="3"
+          >
+            {connector.name}
+          </Button>
+        ))}
+      </Flex>
+    </>
+  );
+};
+
+const ConnectorsDownloadLinks = () => (
+  <>
+    <Text as="p" mb="2">
+      Any wallet detected. Please install a wallet to continue.
+    </Text>
+    <Flex gap="3" align="center">
+      {connectorsDownloadLinks.map((connector, index) => (
+        <>
+          <Link
+            key={connector.id}
+            size="3"
+            href={connector.downloadLink}
+            target="_blank"
+          >
+            {connector.name}
+          </Link>
+          {index + 1 < connectorsDownloadLinks.length && (
+            <Separator orientation="vertical" />
+          )}
+        </>
+      ))}
+    </Flex>
+  </>
+);
 
 export const ConnectWalletModal = () => {
-  const { connectors, connect } = useConnect();
+  const { connectors } = useConnect();
 
   return (
     <Dialog.Root>
@@ -23,20 +81,11 @@ export const ConnectWalletModal = () => {
         </Flex>
 
         <Box>
-          <Text as="p" mb="2">
-            Choose between available connectors
-          </Text>
-          <Flex gap="3">
-            {connectors.map((connector) => (
-              <Button
-                onClick={() => connect({ connector })}
-                key={connector.id}
-                size="3"
-              >
-                {connector.name}
-              </Button>
-            ))}
-          </Flex>
+          {connectors.length > 0 ? (
+            <ConnectorsDetected />
+          ) : (
+            <ConnectorsDownloadLinks />
+          )}
         </Box>
       </Dialog.Content>
     </Dialog.Root>
