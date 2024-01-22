@@ -6,10 +6,9 @@ import { formatAddress } from "../../../../../utils/format-address";
 import { useGetRafflePlayers } from "../../../../../hooks/useGetRafflePlayers";
 import { useGetRaffleIntervalInSeconds } from "../../../../../hooks/useGetRaffleIntervalInSeconds";
 import { useBreakpoints } from "../../../../../hooks/useBreakpoints";
-import { CopyableAddress } from "../../../../../components/ui/CopyableAddress/CopyableAddress";
-import "./RaffleInformation.scss";
-
+import { CopyableAddress } from "../../../../../components/shared/CopyableAddress/CopyableAddress";
 import { Box } from "@radix-ui/themes";
+import "./RaffleInformation.scss";
 
 export const RaffleInformation = () => {
   const enterFee = useGetRaffleEnterFee();

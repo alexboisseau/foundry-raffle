@@ -1,8 +1,8 @@
-import { Badge, Button, Dialog, Flex, Text } from "@radix-ui/themes";
+import { Badge, Button, Dialog, Flex } from "@radix-ui/themes";
 import { useAccount, useDisconnect } from "wagmi";
 import { formatAddress } from "../../../../../../utils/format-address";
 import { SwitchNetworkModal } from "../../../../../../components/shared/SupportedNetworks/SwitchNetworkButton/SwitchNetworkModal";
-import { CopyableAddress } from "../../../../../../components/ui/CopyableAddress/CopyableAddress";
+import { CopyableAddress } from "../../../../../../components/shared/CopyableAddress/CopyableAddress";
 
 export const AccountModal = () => {
   const { address } = useAccount();
