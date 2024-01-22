@@ -1,4 +1,4 @@
-import { IoCopy } from "react-icons/io5";
+import { CopyIcon } from "@radix-ui/react-icons";
 import toast from "react-hot-toast";
 import "./CopyableAddress.scss";
 
@@ -16,7 +16,7 @@ export const CopyableAddress = ({ address }: CopyableAddressProps) => {
   return (
     <div className="copyable-address">
       <p className="address">{address}</p>
-      <IoCopy size={16} onClick={handleClick} />
+      <CopyIcon onClick={handleClick} />
     </div>
   );
 };
