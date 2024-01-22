@@ -4,9 +4,8 @@ import { RaffleCard } from "./components/RaffleCard/RaffleCard";
 import { WatchPickedWinner } from "./components/WatchPickedWinner/WatchPickedWinner";
 import { BackgroundPageGrid } from "./components/BackgroundPageGrid/BackgroundPageGrid";
 import { Flex, Heading } from "@radix-ui/themes";
-import "./RafflePage.scss";
-import { ModeToggle } from "../../components/shared/Header/ModeToggle/ModeToggle";
 import { Header } from "../../components/shared/Header/Header";
+import "./RafflePage.scss";
 
 export const RafflePage = () => (
   <>
