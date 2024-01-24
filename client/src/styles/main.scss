@@ -12,17 +12,7 @@
   font-style: normal;
 }
 
-@import "@radix-ui/colors/iris.css";
-@import "@radix-ui/colors/iris-dark.css";
-
 body {
   font-family: "Inter-Regular", sans-serif;
   margin: 0;
-}
-
-.toast {
-  background-color: #15151598 !important;
-  border: 0.125rem solid #ffffff28 !important;
-  color: var(--iris-1) !important;
-  width: fit-content !important;
 }
